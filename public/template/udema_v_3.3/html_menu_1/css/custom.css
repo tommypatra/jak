@@ -1,0 +1,41 @@
+/*============================================================================================*/
+/* Your custom styles below */
+/*============================================================================================*/
+/* Submenu level kedua (misalnya: submenu dari "Program Studi") */
+.main-menu ul ul li {
+    position: relative;
+}
+
+.main-menu ul ul ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%; /* Tampilkan di sebelah kanan submenu utama */
+    margin-left: 1px;
+    background: white; /* Ubah sesuai dengan tema */
+    z-index: 999;
+    min-width: 200px; /* Sesuaikan dengan kebutuhan */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Opsional: biar cantik */
+}
+
+.main-menu ul ul li:hover > ul {
+    display: block;
+}
+
+.main-menu ul ul:before {
+    display: none !important;
+}
+
+
+.slide_typo_2 {
+  max-width: 80%; /* atur sesuai kebutuhan */
+  white-space: normal !important;
+  word-wrap: break-word;
+}
+
+
+.call_section {
+    background: url(../../../../images/pojok_rektor.png) center center no-repeat fixed;
+    background-size: cover;
+    padding: 60px 0;
+}
