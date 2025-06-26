@@ -16,7 +16,7 @@ class CreateKotakSaransTable extends Migration
         Schema::create('kotak_sarans', function (Blueprint $table) {
             $table->id();
             // $table->boolean('is_publikasi');
-            $table->string('nama');
+            $table->string('nama', 180);
             $table->text('komentar');
             // $table->foreignId('user_id');
             // $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();

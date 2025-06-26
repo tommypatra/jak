@@ -16,9 +16,9 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('urut')->default(1);
-            $table->string('nama')->unique();
-            $table->string('url')->nullable()->unique();
-            $table->string('endpoint')->nullable();
+            $table->string('nama', 180)->unique();
+            $table->string('url', 180)->nullable()->unique();
+            $table->string('endpoint', 180)->nullable();
             $table->foreignId('menu_id')->nullable();
             $table->foreign('menu_id')->references('id')->on('menus')->restrictOnDelete();
             $table->foreignId('user_id');

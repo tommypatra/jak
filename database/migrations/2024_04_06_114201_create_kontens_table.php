@@ -15,10 +15,10 @@ class CreateKontensTable extends Migration
     {
         Schema::create('kontens', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
+            $table->string('judul', 180);
             $table->dateTime('waktu');
-            $table->string('thumbnail')->nullable();
-            $table->string('slug')->unique();
+            $table->string('thumbnail', 180)->nullable();
+            $table->string('slug', 180)->unique();
             $table->text('isi');
             $table->integer('jumlah_akses')->default(0);
             $table->foreignId('jenis_konten_id');

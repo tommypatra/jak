@@ -16,7 +16,7 @@ class CreateKomentarsTable extends Migration
         Schema::create('komentars', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_publikasi')->nullable()->default(null);
-            $table->string('nama');
+            $table->string('nama', 180);
             $table->text('komentar');
             $table->foreignId('konten_id')->nullable();
             $table->foreign('konten_id')->references('id')->on('kontens')->cascadeOnDelete();

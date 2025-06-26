@@ -15,13 +15,13 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('slug')->unique();
-            $table->string('path');
-            $table->string('cover')->nullable();
+            $table->string('judul', 180);
+            $table->string('slug', 180)->unique();
+            $table->string('path', 180);
+            $table->string('cover', 180)->nullable();
             $table->text('deskripsi')->nullable();
             $table->dateTime('waktu');
-            $table->string('jenis_file')->nullable(); //jpg pdf dll
+            $table->string('jenis_file', 180)->nullable(); //jpg pdf dll
             $table->float('ukuran')->nullable();
             $table->integer('jumlah_akses')->default(0);
             $table->foreignId('jenis_konten_id');

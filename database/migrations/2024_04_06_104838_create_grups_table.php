@@ -15,7 +15,7 @@ class CreateGrupsTable extends Migration
     {
         Schema::create('grups', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->unique();
+            $table->string('nama', 180)->unique();
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
             $table->timestamps();

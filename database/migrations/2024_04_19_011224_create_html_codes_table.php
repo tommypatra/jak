@@ -15,8 +15,8 @@ class CreateHtmlCodesTable extends Migration
     {
         Schema::create('html_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('slug')->unique();
+            $table->string('judul', 180);
+            $table->string('slug', 180)->unique();
             $table->text('code');
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();

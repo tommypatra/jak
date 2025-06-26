@@ -15,8 +15,9 @@ class CreateSlideShowsTable extends Migration
     {
         Schema::create('slide_shows', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('path')->nullable();
+            $table->string('judul', 180);
+            $table->string('link', 180)->nullable();
+            $table->string('path', 180)->nullable();
             $table->text('deskripsi')->nullable();
             $table->boolean('is_publikasi')->default(1);
             $table->foreignId('user_id');

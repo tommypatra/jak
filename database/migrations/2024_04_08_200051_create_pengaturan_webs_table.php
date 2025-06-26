@@ -15,19 +15,19 @@ class CreatePengaturanWebsTable extends Migration
     {
         Schema::create('pengaturan_webs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('icon')->nullable();
-            $table->string('logo')->default('images/logo.png');
+            $table->string('nama', 180);
+            $table->string('icon', 180)->nullable();
+            $table->string('logo', 180)->default('images/logo.png');
             $table->text('deskripsi');
-            $table->string('keywords');
-            $table->string('alamat')->nullable();
-            $table->string('helpdesk')->nullable();
-            $table->string('fb')->nullable();
-            $table->string('tiktok')->nullable();
-            $table->string('youtube')->nullable();
-            $table->string('ig')->nullable();
-            $table->string('email')->nullable();
-            $table->string('twitter')->nullable();
+            $table->string('keywords', 180);
+            $table->string('alamat', 180)->nullable();
+            $table->string('helpdesk', 180)->nullable();
+            $table->string('fb', 180)->nullable();
+            $table->string('tiktok', 180)->nullable();
+            $table->string('youtube', 180)->nullable();
+            $table->string('ig', 180)->nullable();
+            $table->string('email', 180)->nullable();
+            $table->string('twitter', 180)->nullable();
             $table->float('longitude', 11, 8)->nullable();
             $table->float('latitude', 11, 8)->nullable();
             $table->boolean('confirm_konten')->default(1);

@@ -16,9 +16,9 @@ class CreateProfilsTable extends Migration
         Schema::create('profils', function (Blueprint $table) {
             $table->id();
             $table->enum('jenis_kelamin', ['L', 'P'])->default('L');
-            $table->string('foto');
-            $table->string('alamat');
-            $table->string('hp');
+            $table->string('foto', 180);
+            $table->string('alamat', 180);
+            $table->string('hp', 180);
             $table->foreignId('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
             $table->timestamps();
