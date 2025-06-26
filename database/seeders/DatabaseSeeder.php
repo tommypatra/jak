@@ -50,10 +50,19 @@ class DatabaseSeeder extends Seeder
         //untuk jenis konten
         $dtdef = [
             ['user_id' => 1, 'nama' => 'Profil', 'slug' => 'profil', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Profil website'],
+            ['user_id' => 1, 'nama' => 'Pojok Rektor', 'slug' => 'pojok-rektor', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Tulisan rektor kita'],
             ['user_id' => 1, 'nama' => 'Berita', 'slug' => 'berita', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Daftar berita website'],
+            ['user_id' => 1, 'nama' => 'Program Studi', 'slug' => 'program-studi', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Program studi IIQ JA Kendari'],
             ['user_id' => 1, 'nama' => 'Pengumuman', 'slug' => 'pengumuman', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Daftar pengumuman website'],
+            ['user_id' => 1, 'nama' => 'Testimoni', 'slug' => 'testimoni', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Kata mereka tentang kami'],
+            ['user_id' => 1, 'nama' => 'Penerimaan Mahasiswa Baru', 'slug' => 'pmb', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Semua tentang penerimaan mahasiswa baru IIQ JA Kendari'],
+            ['user_id' => 1, 'nama' => 'Biaya Pendidikan', 'slug' => 'biaya-pendidikan', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Biaya pendidikan setiap angkatan'],
+            ['user_id' => 1, 'nama' => 'Kalender Akademik', 'slug' => 'kalender-akademik', 'kategori' => 'ARTIKEL', 'deskripsi' => 'Data kalender akademik aktivitas kami'],
+
             ['user_id' => 1, 'nama' => 'Download', 'slug' => 'download', 'kategori' => 'FILE', 'deskripsi' => 'Daftar download pada website'],
             ['user_id' => 1, 'nama' => 'Peraturan', 'slug' => 'peraturan', 'kategori' => 'FILE', 'deskripsi' => 'Daftar peraturan pada website'],
+            ['user_id' => 1, 'nama' => 'Akreditasi', 'slug' => 'akreditasi', 'kategori' => 'FILE', 'deskripsi' => 'Akreditasi institut dan program studi IIQ JA Kendari'],
+            ['user_id' => 1, 'nama' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi', 'kategori' => 'FILE', 'deskripsi' => 'Dokumen struktur organisasi IIQ JA Kendari'],
         ];
 
         foreach ($dtdef as $dt) {
@@ -115,12 +124,14 @@ class DatabaseSeeder extends Seeder
         //untuk pengaturan web
         PengaturanWeb::create([
             'user_id' => 1,
-            'nama' => 'Website Institut',
-            'deskripsi' => 'Institut kami memiliki website resmi yang digunakan untuk mempublikasikan konten atau kegiatan pada institusi kami',
-            'alamat' => 'Jalan Sultan Diponegoro No. 17 Kendari, Sulawesi Tenggara',
+            'nama' => 'IIQ | Institut Ilmu Al Quran JA Kendari',
+            'deskripsi' => 'IIQ | Institut Ilmu Al Quran JA Kendari memiliki website resmi yang digunakan untuk mempublikasikan konten atau kegiatan pada institusi kami',
+            'alamat' => 'Jl. Wayong By Pass, Lepo-lepo, Betao Riase, Kec. Pitu Riawa, Kabupaten Sidenreng Rappang, Sulawesi Selatan 91683',
             'helpdesk' => '(wa call only) 0852235361763, (wa chat only) 085435263544',
-            'keywords' => 'Institut Website Resmi',
-            'email' => 'institut@mail.com',
+            'longitude' => 122.506486,
+            'latitude' => -4.022702,
+            'keywords' => '+6281217081329',
+            'email' => 'info@iiq-jakendari.ac.id',
         ]);
 
         //untuk atur grup
@@ -144,10 +155,22 @@ class DatabaseSeeder extends Seeder
 
         //untuk konten
         $dtdef = [
-            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'visi-misi', 'judul' => 'Visi Misi Kantor', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p>Visi misi instansi ini adalah</p>'],
-            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'sejarah', 'judul' => 'Sejarah', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p>sejarah instansi ini dimulai dari</p>'],
-            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'struktur-organisasi', 'judul' => 'Struktur Organisasi', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p>Struktur Organisasi berdasarkan peraturan yang berlaku sebagai berikut</p>'],
-            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'tentang-kami', 'judul' => 'Tentang Kami', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p>Kami adalah organisasi yang profesional di bidangnya dan terus berkembang setiap hari</p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 2, 'slug' => 'sambutan-rektor', 'judul' => 'Sambutan Rektor', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'yayasan', 'judul' => 'Tentang Yayasan', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'sejarah', 'judul' => 'Sejarah', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'visi-misi', 'judul' => 'Visi Misi Kantor', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'lambang-atribut', 'judul' => 'Lambang & Atribut', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'mars-lembaga', 'judul' => 'Mars Lembaga', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'unsur-pimpinan', 'judul' => 'Unsur Pimpinan', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'dosen-pengajar', 'judul' => 'Dosen Pengajar', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'tenaga-kependidikan', 'judul' => 'Tenaga Kependidikan', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'tentang-kami', 'judul' => 'Tentang Kami', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 1, 'slug' => 'kontak-kami', 'judul' => 'Kontak Kami', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+
+            ['user_id' => 1, 'jenis_konten_id' => 4, 'slug' => 'as', 'judul' => 'Program Studi Ahwal Al-Syakhshiyyah', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 4, 'slug' => 'iqt', 'judul' => 'Program Studi Ilmu Al-Qur`an dan Tafsir', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+            ['user_id' => 1, 'jenis_konten_id' => 4, 'slug' => 'pba', 'judul' => 'Program Studi Pendidikan Bahasa Arab', 'waktu' => date('Y-m-d H:i:s'), 'isi' => '<p></p>'],
+
         ];
 
         foreach ($dtdef as $dt) {
@@ -161,139 +184,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        //berita sampai 4 sd 13
-        for ($i = 1; $i <= 10; $i++) {
-            $judul = $factory->sentence;
-            Konten::create([
-                'user_id' => 1,
-                'jenis_konten_id' => 2,
-                'judul' => $judul,
-                'waktu' => $dt['waktu'],
-                'isi' => $factory->paragraph(5),
-                'slug' => generateSlug($judul, $dt['waktu']),
-            ]);
-        }
-
-        //pengumuman 13 sd 18
-        for ($i = 1; $i <= 5; $i++) {
-            $judul = $factory->sentence;
-            Konten::create([
-                'user_id' => 1,
-                'jenis_konten_id' => 3,
-                'judul' => $judul,
-                'waktu' => $dt['waktu'],
-                'isi' => $factory->paragraph(5),
-                'slug' => generateSlug($judul, $dt['waktu']),
-            ]);
-        }
-
         //publikasi profil dan berita
-        for ($i = 1; $i <= 10; $i++)
+        for ($i = 1; $i <= 14; $i++)
             Publikasi::create([
                 'user_id' => 1,
                 'konten_id' => $i,
                 'is_publikasi' => 1,
             ]);
-
-        //publikasi untuk pengumuman
-        for ($i = 13; $i <= 17; $i++)
-            Publikasi::create([
-                'user_id' => 1,
-                'konten_id' => $i,
-                'is_publikasi' => 1,
-            ]);
-
-        //tolak untuk berita
-        for ($i = 11; $i <= 11; $i++)
-            Publikasi::create([
-                'user_id' => 1,
-                'konten_id' => $i,
-                'is_publikasi' => 2,
-                'catatan' => 'cek lagi kontennya',
-            ]);
-
-
-        for ($i = 1; $i <= 5; $i++)
-            Komentar::create([
-                'user_id' => 1,
-                'is_publikasi' => rand(1, 0),
-                'nama' => 'pengunjung-' . $i,
-                'komentar' => 'bagus, saya suka konten beritanya, terima kasih',
-                'konten_id' => rand(1, 3),
-            ]);
-
-        Komentar::create([
-            'user_id' => 1,
-            'nama' => 'pengunjung-' . $i,
-            'komentar' => 'bagus, saya suka konten beritanya, terima kasih',
-            'konten_id' => rand(1, 4),
-        ]);
-
-
-        for ($i = 1; $i < 15; $i++)
-            LikeDislike::create([
-                // 'kategori' => 'KONTEN',
-                'konten_id' => rand(1, 3),
-            ]);
-
-        //untuk file
-        $dtdef = [
-            ['user_id' => 1, 'jenis_konten_id' => 4, 'judul' => 'Formulir Pendaftaran', 'waktu' => date('Y-m-d H:i:s')],
-            ['user_id' => 1, 'jenis_konten_id' => 4, 'judul' => 'Buku Pedoman Pegawai', 'waktu' => date('Y-m-d H:i:s')],
-            ['user_id' => 1, 'jenis_konten_id' => 4, 'judul' => 'SBU Tahun 2024', 'waktu' => date('Y-m-d H:i:s')],
-            ['user_id' => 1, 'jenis_konten_id' => 5, 'judul' => 'SOP Penerimaan Pegawai', 'waktu' => date('Y-m-d H:i:s')],
-            ['user_id' => 1, 'jenis_konten_id' => 5, 'judul' => 'SK Pendirian Kantor', 'waktu' => date('Y-m-d H:i:s')],
-            ['user_id' => 1, 'jenis_konten_id' => 5, 'judul' => 'SK Pedoman Kenaikan Pangkat', 'waktu' => date('Y-m-d H:i:s')],
-        ];
-
-        foreach ($dtdef as $i => $dt) {
-            File::create([
-                'user_id' => $dt['user_id'],
-                'jenis_konten_id' => $dt['jenis_konten_id'],
-                'judul' => $dt['judul'],
-                'waktu' => $dt['waktu'],
-                'path' => 'uploads/file/sampel-' . $i . ".pdf",
-                'slug' => generateSlug($dt['judul'], $dt['waktu']),
-            ]);
-        }
-
-        for ($i = 1; $i <= 2; $i++)
-            Publikasi::create([
-                'user_id' => 1,
-                'file_id' => $i,
-                'is_publikasi' => 1,
-            ]);
-
-        for ($i = 3; $i <= 4; $i++)
-            Publikasi::create([
-                'user_id' => 1,
-                'file_id' => $i,
-                'is_publikasi' => 0,
-                'catatan' => 'ditolak, ini catatan publikasi file ke-' . $i,
-            ]);
-
-        Publikasi::create([
-            'user_id' => 1,
-            'file_id' => 6,
-            'is_publikasi' => 1,
-        ]);
-
-        for ($i = 1; $i <= 5; $i++) {
-            Komentar::create([
-                'user_id' => 1,
-                'is_publikasi' => rand(1, 0),
-                'nama' => 'pengunjung file ke-' . $i,
-                'komentar' => 'file ke ' . $i . ' nya  bagus, terima kasih',
-                'file_id' => rand(1, 4),
-            ]);
-        }
-
-        Komentar::create([
-            'user_id' => 1,
-            'nama' => 'pengunjung-' . $i,
-            'komentar' => 'bagus file downloadnya, terima kasih',
-            'file_id' => rand(1, 4),
-        ]);
 
         //visitor counter
         HtmlCode::create([
@@ -314,11 +211,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'judul' => 'Peta Lokasi',
             'slug' => 'peta-lokasi',
-            'code' => ' <div class="mb-3">
-                            <h5>Lokasi Kami</h5>
-                            <hr>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7959.793924170087!2d122.475!3d-4.041445!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d988c472863d8db%3A0x80e257d51fbd380d!2sInstitut%20Agama%20Islam%20Negeri%20(IAIN)%20Kendari!5e0!3m2!1sid!2sid!4v1713571268614!5m2!1sid!2sid" width="600" height="400" style="border:1;width:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        
-                        </div>',
+            'code' => ' <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d822.1925400501424!2d122.50629952459582!3d-4.0225434298362615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1749463373009!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
         ]);
 
         //plink terkait
@@ -335,27 +228,6 @@ class DatabaseSeeder extends Seeder
                                 <li><a href="https://simpeg.iainkendari.ac.id" target="_blank">SIMPEG</li>
                             </ul>
                         </div>',
-        ]);
-
-        //untuk file
-        $dtdef = [
-            ['user_id' => 1,  'judul' => 'Pelaksanaan Sosialisasi', 'path' => 'slideshows/1.jpg'],
-            ['user_id' => 1,  'judul' => 'Selamat Hari Raya Idul Fitri', 'path' => 'slideshows/2.jpg'],
-            ['user_id' => 1,  'judul' => 'Selamat Berpuasa di Bulan Ramadhan', 'path' => 'slideshows/3.jpg'],
-        ];
-
-        foreach ($dtdef as $i => $dt) {
-            SlideShow::create([
-                'user_id' => $dt['user_id'],
-                'judul' => $dt['judul'],
-                'path' => $dt['path'],
-                'is_publikasi' => 1,
-            ]);
-        }
-
-        KotakSaran::create([
-            'nama' => "Al Fath",
-            'komentar' => "kalau bisa beritanya kasi menarik ",
         ]);
     }
 }

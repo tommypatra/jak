@@ -61,12 +61,13 @@
 				<ul>
 					<li><span><a href="#0">Profil</a></span>
 						<ul>
-							<li><a href="{{ url('read/profil/sambutan-rektor') }}">Sambutan Rektor</a></li>
+							<li><a href="{{ url('read/pojok-rektor/sambutan-rektor') }}">Sambutan Rektor</a></li>
 							<li><a href="{{ url('read/profil/yayasan') }}">Yayasan IIQ JA Kendari</a></li>
 							<li><a href="{{ url('read/profil/sejarah') }}">Sejarah</a></li>
 							<li><a href="{{ url('read/profil/visi-misi') }}">Visi, Misi dan Tujuan</a></li>
 							<li><a href="{{ url('read/profil/lambang-atribut') }}">Lambang & Atribut</a></li>
 							<li><a href="{{ url('read/profil/mars-lembaga') }}">Mars Lembaga</a></li>
+							<li><a href="{{ url('dokumen/struktur-organisasi') }}">Struktur Organisasi</a></li>
 							<li><a href="{{ url('read/profil/unsur-pimpinan') }}">Unsur Pimpinan</a></li>
 							<li><a href="{{ url('read/profil/dosen-pengajar') }}">Dosen Pengajar</a></li>
 							<li><a href="{{ url('read/profil/tenaga-kependidikan') }}">Tenaga Kependidikan</a></li>
