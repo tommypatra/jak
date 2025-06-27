@@ -360,7 +360,7 @@
                   <div class="block-horizzontal"></div>
                   <img src="${base_url}${konten.thumbnail}" class="img-fluid" alt="${konten.judul}">
                   <div class="info">
-                    <small><i class="ti-layers"></i> Program Studi</small>
+                    <small>&nbsp;</small>
                     <h3>${konten.judul}</h3>
                     <p style="font-size: 14px;">${konten.pembuka}</p>
                     <span class="btn btn-sm btn-outline-primary mt-2">Selengkapnya</span>
