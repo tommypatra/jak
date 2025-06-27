@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-lg-9">
 					<div class="bloglist singlepost">
-						<p><img alt="" class="img-fluid" id="konten-gambar" src="img/blog-single.jpg"></p>
+						<p><img alt="" class="img-fluid" id="konten-gambar" src="{{ url('images/blog-single.jpg')}}"></p>
 						<h1 id="konten-judul">Judul</h1>
 						<div class="postmeta">
 							<ul>
@@ -122,7 +122,7 @@
 
             $('#konten-gambar').attr('src',`${konten.thumbnail ?? base_url+'/images/logo.png'}`);
             $('#konten-judul').text(konten.judul);
-            
+
             $('#konten-jenis').text(konten.jenis_konten_nama);
             $('#konten-jumlah-akses').text(konten.jumlah_akses+1);
             $('#konten-jenis').parent('a').attr('href', url);
