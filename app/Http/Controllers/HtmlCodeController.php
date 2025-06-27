@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HtmlCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\HtmlCodeRequest;
 
 class HtmlCodeController extends Controller
@@ -11,6 +12,12 @@ class HtmlCodeController extends Controller
     public function index(Request $request)
     {
         $dataQuery = HtmlCode::with(['user']);
+
+        if (!$request->filled('web')) {
+            if (!is_admin() && !is_editor())
+                $dataQuery->where('user_id', auth()->id());
+        }
+
 
         if ($request->filled('search')) {
             $dataQuery->where('judul', 'like', '%' . $request->search . '%');
@@ -28,14 +35,20 @@ class HtmlCodeController extends Controller
 
     public function store(HtmlCodeRequest $request)
     {
-        $dataQuery = HtmlCode::create($request->all());
-        $dataQuery->updated_at_format = dbDateTimeFormat($dataQuery->updated_at);
-        return response()->json($dataQuery, 201);
+        try {
+            DB::beginTransaction();
+            $data = HtmlCode::create($request->validated());
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'terjadi kesalahan saat membuat data baru: ' . $e->getMessage()], 500);
+        }
     }
 
     public function show($id)
     {
-        $dataQuery = HtmlCode::with(['user'])->find($id);
+        $dataQuery = HtmlCode::find($id);
         if (!$dataQuery) {
             return response()->json(['message' => 'data tidak ditemukan'], 404);
         }
@@ -44,23 +57,29 @@ class HtmlCodeController extends Controller
 
     public function update(HtmlCodeRequest $request, $id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = HtmlCode::findOrFail($id);
+            $dataQuery->update($request->validated());
+            DB::commit();
+            return response()->json($dataQuery, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->update($request->all());
-        return response()->json($dataQuery, 200);
     }
 
     public function destroy($id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = HtmlCode::findOrFail($id);
+            $dataQuery->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->delete();
-        return response()->json(null, 204);
     }
 }

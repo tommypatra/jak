@@ -139,30 +139,9 @@
 <script type="text/javascript">
   'use strict';
 
-  async function htmlCode(slug,element) {
-      $(element).html(slug + ' tidak ditemukan');
-      try {
-          const response = await fetch(`${base_url}/api/get-html-code?slug=${slug}`);
-          const result = await response.json();
-          if (result.data.length > 0) {
-              $(element).html(result.data[0].code);
-          }
-      } catch (error) {
-          console.error(error);
-      }
-  }  
-
-  async function renderCustomHtml() {
-    const elements = document.querySelectorAll('.custom-code-html');
-    for (const el of elements) {
-      const slug = el.dataset.slug;
-      await htmlCode(slug, el);
-    }
-  }
-
   async function loadLayerSlider() {
     try {
-      const response = await fetch(`${base_url}/api/get-slide-show?is_web=true&showall=true`);
+      const response = await fetch(`${base_url}/api/get-slide-show?web=1&showall=true`);
       const result = await response.json();
       const data = result.data || [];
 
@@ -228,7 +207,7 @@
 
   async function berita(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=berita&is_web=true&limit=6&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?jenis=berita&web=1&limit=6&publikasi=1`);
       const dataResponse = await response.json();
       if (dataResponse.data.length > 0) {
         const row = $("#list-berita");
@@ -266,7 +245,7 @@
 
   async function pojokRektor(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=pojok-rektor&is_web=true&limit=1&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?jenis=pojok-rektor&web=1&limit=1&publikasi=1`);
       const dataResponse = await response.json();
       if (dataResponse.data.length > 0) {
         dataResponse.data.forEach(function (konten) {
@@ -283,7 +262,7 @@
 
   async function testimoni() {
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=testimoni&is_web=true&limit=6&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?jenis=testimoni&web=1&limit=6&publikasi=1`);
       const dataResponse = await response.json();
 
       const container = document.getElementById("reccomended");
@@ -345,7 +324,7 @@
 
   async function programStudi() {
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=program-studi&is_web=true&limit=9&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?jenis=program-studi&web=1&limit=9&publikasi=1`);
       const dataResponse = await response.json();
 
       const container = document.getElementById("list-prodi");
@@ -420,7 +399,6 @@
       await berita();
       await pojokRektor();
       await galeri();
-      await renderCustomHtml();
     }
     sesuaikanPengaturan();
 

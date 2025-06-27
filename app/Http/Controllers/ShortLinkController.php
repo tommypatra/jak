@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShortLink;
-use App\Http\Requests\ShortLinkRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ShortLinkRequest;
 
 class ShortLinkController extends Controller
 {
@@ -13,6 +14,11 @@ class ShortLinkController extends Controller
         $dataQuery = ShortLink::with('user')->orderBy('nama', 'asc');
         if ($request->filled('search')) {
             $dataQuery->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        if (!$request->filled('web')) {
+            if (!is_admin() && !is_editor())
+                $dataQuery->where('user_id', auth()->id());
         }
 
         $limit = $request->input('limit', 25);

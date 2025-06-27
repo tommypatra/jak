@@ -16,7 +16,7 @@ class SlideShowController extends Controller
     public function index(Request $request)
     {
         $dataQuery = SlideShow::with(['user'])->orderBy('updated_at', 'desc')->orderBy('judul', 'asc');
-        if (!$request->filled('is_web')) {
+        if (!$request->filled('web')) {
             if (!is_admin(auth()->id()))
                 $dataQuery->where('user_id', auth()->id());
         }
@@ -35,6 +35,11 @@ class SlideShowController extends Controller
             } elseif ($publikasiValue == 2) {
                 $dataQuery->whereNull('is_publikasi');
             }
+        }
+
+        if (!$request->filled('web')) {
+            if (!is_admin() && !is_editor())
+                $dataQuery->where('user_id', auth()->id());
         }
 
         $limit = $request->input('limit', 25);

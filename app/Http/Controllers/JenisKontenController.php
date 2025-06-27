@@ -77,32 +77,42 @@ class JenisKontenController extends Controller
 
     public function show($id)
     {
-        $dataQuery = JenisKonten::find($id);
-        if (!$dataQuery) {
-            return response()->json(['message' => 'data tidak ditemukan'], 404);
+        try {
+            DB::beginTransaction();
+            $data = JenisKonten::create($request->validated());
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'terjadi kesalahan saat membuat data baru: ' . $e->getMessage()], 500);
         }
-        return response()->json($dataQuery);
     }
 
     public function update(JenisKontenRequest $request, $id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = JenisKonten::findOrFail($id);
+            $dataQuery->update($request->validated());
+            DB::commit();
+            return response()->json($dataQuery, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->update($request->all());
-        return response()->json($dataQuery, 200);
     }
 
     public function destroy($id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = JenisKonten::findOrFail($id);
+            $dataQuery->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->delete();
-        return response()->json(null, 204);
     }
 }

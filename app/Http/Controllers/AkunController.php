@@ -26,13 +26,18 @@ class AkunController extends Controller
 
     public function store(AkunRequest $request)
     {
-        $request['password'] = Hash::make($request['password']);
 
-        $dataSave = User::create($request->all());
-        $dataQuery = User::where('id', $dataSave->id)
-            ->first();
-        $dataQuery->updated_at_format = dbDateTimeFormat($dataQuery->updated_at);
-        return response()->json($dataQuery, 201);
+        try {
+            DB::beginTransaction();
+            $dataSave = $request->validated();
+            $dataSave['password'] = Hash::make($dataSave['password']);
+            $data = User::create($dataSave);
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'terjadi kesalahan saat membuat data baru: ' . $e->getMessage()], 500);
+        }
     }
 
     public function show($id)
@@ -45,29 +50,32 @@ class AkunController extends Controller
     }
 
     public function update(AkunRequest $request, $id)
-    {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+{
+    DB::beginTransaction();
+    try {
+        $dataQuery = AturGrup::findOrFail($id);
+        $dataSave = $request->validated();
+        if ($request->password) {
+            $dataSave['password'] = Hash::make($dataSave['password']);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        // dd($request['password']);
-        if ($request['password'])
-            $request['password'] = Hash::make($request['password']);
-        else
-            unset($request['password']);
-        $dataQuery->update($request->all());
+        $dataQuery->update($dataSave);
+        DB::commit();
         return response()->json($dataQuery, 200);
-    }
+
+    } catch (\Exception $e) {
+
 
     public function destroy($id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = User::findOrFail($id);
+            $dataQuery->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->delete();
-        return response()->json(null, 204);
     }
 }

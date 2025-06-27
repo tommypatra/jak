@@ -106,7 +106,7 @@
 
   async function read(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=${jenis}&slug=${judul}`);
+      const response = await fetch(`${base_url}/api/list-konten?web=1&jenis=${jenis}&slug=${judul}`);
       const dataResponse = await response.json();
       const row = $("#list-konten");
       row.empty(); 
@@ -150,7 +150,7 @@
 
   async function kontenPopuler(){ 
     try { 
-      const response = await fetch(`${base_url}/api/list-konten?jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?web=1&jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
       const dataResponse = await response.json();
       const row = $("#list-konten-populer");
       row.empty(); 
@@ -180,7 +180,7 @@
 
   async function getGrup(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-jenis-konten?slug=${jenis}`);
+      const response = await fetch(`${base_url}/api/list-jenis-konten?web=1&slug=${jenis}`);
       const dataResponse = await response.json();
       if (dataResponse.data.length > 0) {
         $('.blog-nama').text(dataResponse.data[0].nama);

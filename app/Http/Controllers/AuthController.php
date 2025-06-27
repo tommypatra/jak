@@ -16,7 +16,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken('api_token')->plainTextToken;
-            updateTokenUsed();
+            // updateTokenUsed();
             $daftarAkses = daftarAkses($user->id);
             // dd($daftarAkses);
             $akses_grup = $daftarAkses->aturgrup[0]->grup_id;

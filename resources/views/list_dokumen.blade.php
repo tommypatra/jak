@@ -25,7 +25,7 @@
 
 		<div class="container margin_60_35">
 			<div class="row">
-				<aside class="col-lg-3" id="sidebar">
+				<aside class="col-lg-3" id="sidebar-menu">
 					<div id="filters_col"> <a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Dokumen Web</a>
 						<div class="collapse show" id="collapseFilters">
               <div class="filter_type">
@@ -61,8 +61,9 @@
 			</div>
 			<!-- /row -->
 		</div>
-		<!-- /container -->
-		<div class="bg_color_1">
+
+    <!-- /container -->
+		{{-- <div class="bg_color_1">
 			<div class="container margin_60_35">
 				<div class="row">
 					<div class="col-md-4">
@@ -90,7 +91,7 @@
 				<!-- /row -->
 			</div>
 			<!-- /container -->
-		</div>
+		</div> --}}
 		<!-- /bg_color_1 -->
 
 		<!-- /container -->
@@ -104,7 +105,7 @@
 
   async function konten(page=1,search=""){ 
     try {
-      const response = await fetch(`${base_url}/api/list-file?jenis=${jenis}&search=${search}&page=${page}&limit=10&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-file?web=1&jenis=${jenis}&search=${search}&page=${page}&limit=10&publikasi=1`);
       const dataResponse = await response.json();
       const row = $("#list-file");
       const pagination = $('#pagination');
@@ -162,7 +163,7 @@
 
   async function kontenPopuler(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-file?jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-file?web=1&jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
       const dataResponse = await response.json();
       const row = $("#list-file-populer");
       row.empty(); 

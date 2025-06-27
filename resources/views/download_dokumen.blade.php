@@ -20,7 +20,7 @@
 
 		<div class="container margin_60_35">
 			<div class="row">
-				<aside class="col-lg-3" id="sidebar">
+				<aside class="col-lg-3" id="sidebar-menu">
 					<div id="filters_col"> <a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Dokumen Web</a>
 						<div class="collapse show" id="collapseFilters">
               <div class="filter_type">
@@ -124,7 +124,7 @@
 
   async function read(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-file?jenis=${jenis}&slug=${judul}`);
+      const response = await fetch(`${base_url}/api/list-file?web=1&jenis=${jenis}&slug=${judul}`);
       const dataResponse = await response.json();
       const row = $("#list-file");
       row.empty(); 
@@ -170,7 +170,7 @@
                       <li><i class="icon_clock_alt"></i> ${tglLengkap}</li>
                       <li><i class="icon_like"></i> ${konten.likedislike_count}</li>
                       <li><i class="icon_comment"></i> ${konten.komentar_count}</li>
-                      <li><i class="bi bi-eye"></i> ${konten.jumlah_akses+1}</li>
+                      <li><i class="bi bi-eye"></i> ${parseInt(konten.jumlah_akses)+1}</li>
                       <li><a href="${url}" target="_blank">DOWNLOAD</a></li>
                     </ul>
                   </div>
@@ -178,6 +178,9 @@
               </div>`;
             $('#file_id').val(konten.id);
             row.append(html);
+      }else{
+        alert('tidak ditemukan')
+        window.location.href = base_url;
       }
     } catch (error) {
       console.error(error);
@@ -255,7 +258,7 @@
     $("#search-konten").autocomplete({
       source: function(request, response) {
         $.ajax({
-          url: `${base_url}/api/list-file`,
+          url: `${base_url}/api/list-file?web=1`,
           data: {
             jenis: jenis,
             limit: 7,

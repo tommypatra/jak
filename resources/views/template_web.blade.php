@@ -3,15 +3,15 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>IIQ | Institut Ilmu Al Quran JA Kendari</title>
+	<title>IIQ JA Kendari</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Website resmi Institut Ilmu Al Quran Jannatu Adnin Kendari">
 	<meta name="keywords" content="Institut Ilmu Al Quran Jannatu Adnin Kendari, IIQ, Kendari">
 	<meta name="author" content="Admin IIQ Kendari">
 
 	<!-- Untuk gambar preview (WhatsApp, FB) -->
-    <meta property="og:title" content="IIQ | Institut Ilmu Al Quran JA Kendari" />
-    <meta property="og:description" content="Website resmi IIQ Kendari'" />
+    <meta property="og:title" content="IIQ JA Kendari" />
+    <meta property="og:description" content="Website resmi Institut Ilmu Al Quran Jannatu Adnin Kendari" />
     <meta property="og:image" content="{{ url('images/logo.png') }}" />
     <meta property="og:url" content="{{ url()->current() }}" />
 	
@@ -32,6 +32,7 @@
 	<!-- SPECIFIC CSS -->
 	<link href="{{url('template/udema_v_3.3/html_menu_1')}}/layerslider/css/layerslider.css" rel="stylesheet">	
 	<link href="{{url('template/udema_v_3.3/html_menu_1')}}/css/custom.css" rel="stylesheet">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	@yield('head')
 	<script>
 		const base_url="{{ url('/') }}";
@@ -147,13 +148,7 @@
 					</div>
 					<div class="col-lg-3 col-md-6 ml-lg-auto">
 						<h5>Useful links</h5>
-						<ul class="links">
-							<li><a href="https://admisi.iiq-jakendari.ac.id" target="_blank">Admisi</a></li>
-							<li><a href="{{ url('read/profil/tentang-kami')}}">About</a></li>
-							<li><a href="{{ route('login') }}">Login</a></li>
-							<li><a href="{{ url('artikel/berita')}}">News &amp; Events</a></li>
-							<li><a href="{{ url('read/profil/kontak-kami')}}">Contacts</a></li>
-						</ul>
+						<div class="custom-code-html" data-slug="link-terkait"></div>
 					</div>
 					<div class="col-lg-3 col-md-6">
 						<h5>Contact with Us</h5>

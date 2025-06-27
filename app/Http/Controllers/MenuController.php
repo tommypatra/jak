@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\Http\Requests\MenuRequest;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
@@ -43,34 +44,23 @@ class MenuController extends Controller
                 ->orWhere('url', 'like', '%' . $request->search . '%');
         }
 
-        if ($request->filled('showall')) {
-            $dataQuery = $dataQuery->get();
-            $startingNumber = 1;
-        } else {
-            $paging = 25;
-            if ($request->filled('paging')) {
-                $paging = $request->paging;
-            }
-            $dataQuery = $dataQuery->paginate($paging);
-            $startingNumber = ($dataQuery->currentPage() - 1) * $dataQuery->perPage() + 1;
-        }
+        $limit = $request->input('limit', 25);
+        $data = $dataQuery->paginate($limit);
 
-        $dataQuery->transform(function ($item) use (&$startingNumber) {
-            $item->setAttribute('nomor', $startingNumber++);
-            $item->setAttribute('updated_at_format', dbDateTimeFormat($item->updated_at));
-            return $item;
-        });
-
-        return response()->json($dataQuery);
+        return response()->json($data);
     }
 
     public function store(MenuRequest $request)
     {
-        $dataSave = Menu::create($request->all());
-        $dataQuery = Menu::where('id', $dataSave->id)
-            ->first();
-        $dataQuery->updated_at_format = dbDateTimeFormat($dataQuery->updated_at);
-        return response()->json($dataQuery, 201);
+        try {
+            DB::beginTransaction();
+            $data = Menu::create($request->validated());
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'terjadi kesalahan saat membuat data baru: ' . $e->getMessage()], 500);
+        }
     }
 
     public function show($id)
@@ -84,23 +74,30 @@ class MenuController extends Controller
 
     public function update(MenuRequest $request, $id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+
+        DB::beginTransaction();
+        try {
+            $dataQuery = Menu::findOrFail($id);
+            $dataQuery->update($request->validated());
+            DB::commit();
+            return response()->json($dataQuery, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->update($request->all());
-        return response()->json($dataQuery, 200);
     }
 
     public function destroy($id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = Menu::findOrFail($id);
+            $dataQuery->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->delete();
-        return response()->json(null, 204);
     }
 }

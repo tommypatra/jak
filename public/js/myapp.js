@@ -69,8 +69,31 @@ async function getInfo() {
     }
 }
 
+async function htmlCode(slug,element) {
+    $(element).html(slug + ' tidak ditemukan');
+    try {
+        const response = await fetch(`${base_url}/api/get-html-code?web=1&slug=${slug}`);
+        const result = await response.json();
+        if (result.data.length > 0) {
+            $(element).html(result.data[0].code);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}  
+
+async function renderCustomHtml() {
+    const elements = document.querySelectorAll('.custom-code-html');
+    for (const el of elements) {
+        const slug = el.dataset.slug;
+        await htmlCode(slug, el);
+    }
+}
+
 $(document).ready(function() {
-    // var pengaturanWeb = getPengaturanWeb();
-    // if (!pengaturanWeb) 
-    getInfo();
+    init();			
+    async function init(){
+        await getInfo();
+        await renderCustomHtml();
+    }
 });

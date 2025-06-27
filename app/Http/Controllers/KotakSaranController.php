@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KotakSaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\KotakSaranRequest;
 
 class KotakSaranController extends Controller
@@ -20,9 +21,15 @@ class KotakSaranController extends Controller
 
     public function store(KotakSaranRequest $request)
     {
-        $dataQuery = KotakSaran::create($request->all());
-        $dataQuery->updated_at_format = dbDateTimeFormat($dataQuery->updated_at);
-        return response()->json($dataQuery, 201);
+        try {
+            DB::beginTransaction();
+            $data = KotakSaran::create($request->validated());
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'terjadi kesalahan saat membuat data baru: ' . $e->getMessage()], 500);
+        }
     }
 
     public function show($id)
@@ -36,24 +43,29 @@ class KotakSaranController extends Controller
 
     public function update(KotakSaranRequest $request, $id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = KotakSaran::findOrFail($id);
+            $dataQuery->update($request->validated());
+            DB::commit();
+            return response()->json($dataQuery, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-
-        $dataQuery->update($request->all());
-        return response()->json($dataQuery, 200);
     }
 
     public function destroy($id)
     {
-        $dataQueryResponse = $this->show($id);
-        if ($dataQueryResponse->getStatusCode() === 404) {
-            return $dataQueryResponse;
+        DB::beginTransaction();
+        try {
+            $dataQuery = KotakSaran::findOrFail($id);
+            $dataQuery->delete();
+            DB::commit();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        $dataQuery = $dataQueryResponse->getOriginalContent(); // Ambil instance model dari respons
-        $dataQuery->delete();
-        return response()->json(null, 204);
     }
 }

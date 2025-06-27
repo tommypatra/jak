@@ -62,6 +62,11 @@ class KontenController extends Controller
                 $dataQuery->orderBy('jumlah_akses', 'desc');
         }
 
+        if (!$request->filled('web')) {
+            if (!is_admin() && !is_editor())
+                $dataQuery->where('user_id', auth()->id());
+        }
+
         $dataQuery->orderBy('waktu', 'desc')->orderBy('judul', 'asc');
 
 

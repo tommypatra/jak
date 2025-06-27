@@ -23,10 +23,10 @@ class FileController extends Controller
                 'likedislike'
             ]);
 
-        // if (!$request->filled('is_web')) {
-        //     if (!is_admin() && !is_editor())
-        //         $dataQuery->where('user_id', auth()->id());
-        // }
+        if (!$request->filled('web')) {
+            if (!is_admin() && !is_editor())
+                $dataQuery->where('user_id', auth()->id());
+        }
 
         if ($request->filled('search')) {
             $search = $request->search;
