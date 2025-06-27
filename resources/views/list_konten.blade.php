@@ -107,7 +107,7 @@
                     <p>${konten.pembuka}</p>
                     <ul>
                       <li>
-                        <div class="thumb"><img src="${url}/images/thumb_blog.jpg" alt=""></div> ${konten.user_name ?? 'Admin'}
+                        <div class="thumb"><img src="${base_url}/images/thumb_blog.jpg" alt=""></div> ${konten.user_name ?? 'Admin'}
                       </li>
                       <li><i class="bi bi-eye"></i> ${konten.jumlah_akses}</li>
                       <li><i class="icon_comment_alt"></i> ${konten.komentar_count}</li>
