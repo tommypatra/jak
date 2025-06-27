@@ -124,7 +124,7 @@
             $('#konten-judul').text(konten.judul);
 
             $('#konten-jenis').text(konten.jenis_konten_nama);
-            $('#konten-jumlah-akses').text(konten.jumlah_akses+1);
+            $('#konten-jumlah-akses').text(parseInt(konten.jumlah_akses)+1);
             $('#konten-jenis').parent('a').attr('href', url);
 
             $('#konten-tanggal').text(tglLengkap);
@@ -229,7 +229,7 @@
       if((page+1)<=1)
         row.empty();
 
-      console.log(dataResponse);
+      // console.log(dataResponse);
       if (dataResponse.data.length > 0) {
 
         if(dataResponse.current_page<dataResponse.last_page)
@@ -239,7 +239,7 @@
 
         $('#komentar-berikutnya').attr('data-page',dataResponse.current_page);
         dataResponse.data.forEach(function (item) {
-          console.log(item);
+          // console.log(item);
           const tanggal = new Date(item.created_at).toLocaleDateString('id-ID');
           const html = `
             <li>
