@@ -98,7 +98,7 @@
 
   <!-- Footer -->
   @include('partials_footer')
-  <script src="{{ asset('js/myapp.js?new=true') }}"></script>
+  <script src="{{ asset('js/myapp.js?v=1') }}"></script>
   <script>
     var akses_grup = localStorage.getItem('akses_grup');
     var daftar_akses = JSON.parse(localStorage.getItem('daftar_akses'));
@@ -169,7 +169,7 @@
       window.location.replace(base_url + '/login');
     }
 
-    // sesuaikanPengaturan();
+    sesuaikanPengaturan();
   </script>
   <!-- <script src="{{ asset('js/loading.js') }}"></script> -->
   @yield('script')
