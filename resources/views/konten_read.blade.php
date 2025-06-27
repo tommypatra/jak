@@ -122,6 +122,7 @@
 
             $('#konten-gambar').attr('src',`${konten.thumbnail ?? base_url+'/images/logo.png'}`);
             $('#konten-judul').text(konten.judul);
+            
             $('#konten-jenis').text(konten.jenis_konten_nama);
             $('#konten-jumlah-akses').text(konten.jumlah_akses+1);
             $('#konten-jenis').parent('a').attr('href', url);
