@@ -49,7 +49,7 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/myapp.js') }}"></script>
+<script src="{{ asset('js/myapp.js?new=true') }}"></script>
 {{-- <script src="{{ asset('js/token.js') }}"></script> --}}
 <script>
     var csrfToken = $('meta[name="csrf-token"]').attr('content');

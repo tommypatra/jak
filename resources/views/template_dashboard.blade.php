@@ -98,7 +98,7 @@
 
   <!-- Footer -->
   @include('partials_footer')
-  <script src="{{ asset('js/myapp.js') }}"></script>
+  <script src="{{ asset('js/myapp.js?new=true') }}"></script>
   <script>
     var akses_grup = localStorage.getItem('akses_grup');
     var daftar_akses = JSON.parse(localStorage.getItem('daftar_akses'));
