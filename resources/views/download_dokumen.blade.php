@@ -137,6 +137,11 @@
             const tglLengkap = tanggal.toLocaleDateString('id-ID');
             const url=`${base_url}${konten.path}`;
             const cover=(konten.cover)?konten.cover:"/images/dokumen.png";
+
+            //untuk judul
+            const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
+            const judul = pengaturanWeb.nama.trim();
+            document.title = `${konten.jenis_konten_nama} - ${konten.judul} - ${judul}`;        
             
             const html = `
               <div class="box_list wow">

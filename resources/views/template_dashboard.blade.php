@@ -169,7 +169,7 @@
       window.location.replace(base_url + '/login');
     }
 
-    sesuaikanPengaturan();
+    // sesuaikanPengaturan();
   </script>
   <!-- <script src="{{ asset('js/loading.js') }}"></script> -->
   @yield('script')

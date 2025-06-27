@@ -163,6 +163,12 @@
       if (dataResponse.data.length > 0) {
         $('.blog-nama').text(dataResponse.data[0].nama);
         $('#blog-deskripsi').text(dataResponse.data[0].deskripsi);
+
+
+        //untuk judul
+        const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
+        const judul = pengaturanWeb.nama.trim();
+        document.title = `${dataResponse.data[0].nama} - ${judul}`;        
       }
     } catch (error) {
       console.error(error);

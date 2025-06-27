@@ -120,6 +120,12 @@
             const url=`${base_url}/artikel/${konten.jenis_konten_slug}`;
 
 
+            //untuk judul
+            const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
+            const judul = pengaturanWeb.nama.trim();
+            document.title = `${konten.jenis_konten_nama} - ${konten.judul} - ${judul}`;        
+
+
             $('#konten-gambar').attr('src',`${konten.thumbnail ?? base_url+'/images/logo.png'}`);
             $('#konten-judul').text(konten.judul);
 
@@ -133,6 +139,9 @@
             $('#konten-isi').html(konten.isi);
 
             $('#konten_id').val(konten.id);
+      }else{
+        alert('tidak ditemukan')
+        window.location.href = base_url;
       }
     } catch (error) {
       console.error(error);

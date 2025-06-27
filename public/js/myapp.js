@@ -25,18 +25,16 @@ function myLabel(text=null) {
 
 function sesuaikanPengaturan(){
     const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
-    console.log(pengaturanWeb);
+ 
     const logo = pengaturanWeb.logo!==null ? pengaturanWeb.logo : 'images/logo.png';
     const icon = pengaturanWeb.icon!==null ? pengaturanWeb.icon : 'images/icon.png';
     var judul = pengaturanWeb.nama.trim();
-    var url;
     if (!document.title.includes(judul)) {
         judul += ' - ' + document.title.trim();
     }
+
     document.title = judul.trim();
     var url_wa=(pengaturanWeb.helpdesk)?`https://web.whatsapp.com/send?phone=${pengaturanWeb.helpdesk}`:"#";
-
-    
     $('meta[name="description"]').attr('content', pengaturanWeb.deskripsi);
     $('meta[name="keywords"]').attr('content', pengaturanWeb.keywords);
     $('link[rel="shortcut icon"]').attr('href', base_url+icon);
@@ -51,8 +49,11 @@ function sesuaikanPengaturan(){
     $('#logo-web').attr('src', base_url+logo);    
     $('#nama-web').html(pengaturanWeb.nama);    
     $('.hp').html(`<i class="ti-mobile"></i> ${pengaturanWeb.helpdesk}`).attr('href',url_wa);    
-    $('.email').html(`<i class="ti-email"></i> ${pengaturanWeb.email}`).attr('href',`mailto:${pengaturanWeb.email}`);
+    $('.email').html(`<i class="ti-email"></i> ${pengaturanWeb.email}`).attr('href',`mailto:${pengaturanWeb.email}`);    
+
 }
+
+
 
 async function getInfo() {
     try {
@@ -61,6 +62,7 @@ async function getInfo() {
 
         if (responseJson.data.length > 0) {
             localStorage.setItem('pengaturanWeb', JSON.stringify(responseJson.data[0]));
+            sesuaikanPengaturan();
         }
     } catch (error) {
         console.error(error);
@@ -68,7 +70,7 @@ async function getInfo() {
 }
 
 $(document).ready(function() {
-    var pengaturanWeb = getPengaturanWeb();
-    if (!pengaturanWeb) 
-        getInfo();
+    // var pengaturanWeb = getPengaturanWeb();
+    // if (!pengaturanWeb) 
+    getInfo();
 });

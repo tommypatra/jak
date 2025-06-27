@@ -46,12 +46,19 @@
 <script type="text/javascript">
   'use strict';
 
+
   async function konten(page=1,search=""){ 
     try {
       const response = await fetch(`${base_url}/api/list-galeri?search=${search}&page=${page}&limit=20&publikasi=1&web=1`);
       const dataResponse = await response.json();
       const row = $("#list-galeri");
       const pagination = $('#pagination');
+
+      //untuk judul
+      const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
+      const judul = pengaturanWeb.nama.trim();
+      document.title = `Galeri - ${judul}`;        
+
       row.empty(); 
       if (dataResponse.data.length > 0) {
         dataResponse.data.forEach(function (konten) {
@@ -85,6 +92,7 @@
   }  		
 
   $(document).ready(function() {
+
     init();			
     async function init(){
       await konten();
