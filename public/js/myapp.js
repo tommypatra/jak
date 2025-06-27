@@ -25,6 +25,7 @@ function myLabel(text=null) {
 
 function sesuaikanPengaturan(){
     const pengaturanWeb = JSON.parse(localStorage.getItem('pengaturanWeb'));    
+    console.log(pengaturanWeb);
     const logo = pengaturanWeb.logo!==null ? pengaturanWeb.logo : 'images/logo.png';
     const icon = pengaturanWeb.icon!==null ? pengaturanWeb.icon : 'images/icon.png';
     var judul = pengaturanWeb.nama.trim();

@@ -127,10 +127,10 @@ class DatabaseSeeder extends Seeder
             'nama' => 'IIQ | Institut Ilmu Al Quran JA Kendari',
             'deskripsi' => 'IIQ | Institut Ilmu Al Quran JA Kendari memiliki website resmi yang digunakan untuk mempublikasikan konten atau kegiatan pada institusi kami',
             'alamat' => 'Jl. Wayong By Pass, Lepo-lepo, Betao Riase, Kec. Pitu Riawa, Kabupaten Sidenreng Rappang, Sulawesi Selatan 91683',
-            'helpdesk' => '(wa call only) 0852235361763, (wa chat only) 085435263544',
+            'helpdesk' => '+6281217081329',
             'longitude' => 122.506486,
             'latitude' => -4.022702,
-            'keywords' => '+6281217081329',
+            'keywords' => 'IIQ, Institut Ilmu Al Quran JA Kendari, Jannatu adnin',
             'email' => 'info@iiq-jakendari.ac.id',
         ]);
 
