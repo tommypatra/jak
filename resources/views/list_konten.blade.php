@@ -95,7 +95,7 @@
               <div class="row g-0">
                 <div class="col-lg-7">
                   <figure>
-                    <a href="${url}"><img src="${konten.thumbnail ?? 'images/default.jpg'}" alt="">
+                    <a href="${url}"><img src="${konten.thumbnail ?? ${base_url}'/images/default.jpg'}" alt="">
                       <div class="preview"><span>Read more</span></div>
                     </a>
                   </figure>
