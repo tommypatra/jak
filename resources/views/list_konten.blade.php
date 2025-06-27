@@ -95,7 +95,7 @@
               <div class="row g-0">
                 <div class="col-lg-7">
                   <figure>
-                    <a href="${url}"><img src="${konten.thumbnail ?? base_url+'/images/default.jpg'}" alt="">
+                    <a href="${url}"><img src="${konten.thumbnail ?? base_url+'/images/logo.png'}" alt="">
                       <div class="preview"><span>Read more</span></div>
                     </a>
                   </figure>
@@ -107,7 +107,7 @@
                     <p>${konten.pembuka}</p>
                     <ul>
                       <li>
-                        <div class="thumb"><img src="img/thumb_blog.jpg" alt=""></div> ${konten.user_name ?? 'Admin'}
+                        <div class="thumb"><img src="${url}/images/thumb_blog.jpg" alt=""></div> ${konten.user_name ?? 'Admin'}
                       </li>
                       <li><i class="bi bi-eye"></i> ${konten.jumlah_akses}</li>
                       <li><i class="icon_comment_alt"></i> ${konten.komentar_count}</li>
