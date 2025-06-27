@@ -142,7 +142,7 @@
           const html = `
             <li>
               <div class="alignleft">
-                <a href="${url}"><img src="${konten.thumbnail ?? 'images/default.jpg'}" alt=""></a>
+                <a href="${url}"><img src="${konten.thumbnail ?? base_url+'/images/logo.png'}" alt=""></a>
               </div>
               <small>${tglLengkap}</small>
               <h3><a href="${url}" title="${konten.judul}">${konten.judul}</a></h3>

@@ -120,7 +120,7 @@
             const url=`${base_url}/artikel/${konten.jenis_konten_slug}`;
 
 
-            $('#konten-gambar').attr('src',`${konten.thumbnail ?? 'images/default.jpg'}`);
+            $('#konten-gambar').attr('src',`${konten.thumbnail ?? base_url+'/images/logo.png'}`);
             $('#konten-judul').text(konten.judul);
             $('#konten-jenis').text(konten.jenis_konten_nama);
             $('#konten-jumlah-akses').text(konten.jumlah_akses+1);
@@ -154,7 +154,7 @@
           const html = `
             <li>
               <div class="alignleft">
-                <a href="${url}"><img src="${konten.thumbnail ?? 'images/default.jpg'}" alt=""></a>
+                <a href="${url}"><img src="${konten.thumbnail ?? base_url+'/images/logo.png'}" alt=""></a>
               </div>
               <small>${tglLengkap}</small>
               <h3><a href="${url}" title="${konten.judul}">${konten.judul}</a></h3>
@@ -297,7 +297,7 @@
               label: item.judul,
               value: item.slug,
               jenis: item.jenis_konten_nama,
-              image: item.thumbnail ?? 'images/default.jpg',
+              image: item.thumbnail ?? base_url+'/images/thumb_blog.jpg',
               tanggal: new Date(item.waktu).toLocaleDateString('id-ID'),
               url: `${base_url}/read/${item.jenis_konten_slug}/${item.slug}`
             }));
