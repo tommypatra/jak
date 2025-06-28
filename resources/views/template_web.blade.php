@@ -109,7 +109,7 @@
 							<li><a href="{{ url('galeri') }}">Galeri</a></li>
 						</ul>
 					</li>
-					<li><span><a href="{{ url('masukan') }}">Masukan</a></span></li>
+					<li><span><a href="{{ url('feedback') }}">Feedback</a></span></li>
 				</ul>
 			</nav>
 			<!-- Search Menu -->

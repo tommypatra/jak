@@ -1,7 +1,7 @@
 @extends('template_web')
 
 @section('head')
-    <title>Masukan - IIQ | Institut Ilmu Al Quran JA Kendari</title>    
+    <title>Feedback - IIQ | Institut Ilmu Al Quran JA Kendari</title>    
     <link href="{{url('template/udema_v_3.3/html_menu_1')}}/css/blog.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
@@ -18,7 +18,7 @@
 		<section id="hero_in" class="general">
 			<div class="wrapper">
 				<div class="container">
-					<h1 class="fadeInUp blog-nama">Masukan</h1>
+					<h1 class="fadeInUp blog-nama">Feedback</h1>
 					<small id="blog-deskripsi">saran dan masukan yang positif masukan disini</small>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 			<div class="container margin_60_35">
 				<div class="row">
 					<div class="col-md-12">
-            <h5>Masukan Anda</h5>
+            <h5>Feedback Anda</h5>
             <form id="form-feedback">
               <div class="form-group">
                 <input type="text" name="nama" id="nama" class="form-control" placeholder="nama" required>
