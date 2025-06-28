@@ -149,31 +149,6 @@ class WebAppController extends Controller
         return view('auth');
     }
 
-    public function webold()
-    {
-        return view('website');
-    }
-
-    public function kotakSaranWeb()
-    {
-        return view('kotak_saran_web');
-    }
-
-    public function kontenWeb($kategori)
-    {
-        return view('konten_web', ['kategori' => $kategori]);
-    }
-
-    public function galeriWeb()
-    {
-        return view('galeri_web');
-    }
-
-    public function fileWeb($kategori)
-    {
-        return view('file_web', ['kategori' => $kategori]);
-    }
-
     public function kontenReadSlug($slug_kategori, $slug_judul)
     {
         return view('konten_read', ['slug_kategori' => $slug_kategori, 'slug_judul' => $slug_judul]);
@@ -182,11 +157,6 @@ class WebAppController extends Controller
     public function downloadDokumenSlug($slug_kategori, $slug_judul)
     {
         return view('download_dokumen', ['slug_kategori' => $slug_kategori, 'slug_judul' => $slug_judul]);
-    }
-
-    public function fileRead($slug)
-    {
-        return view('file_read', ['slug' => $slug]);
     }
 
     public function listKontenSlug($slug_kategori)
