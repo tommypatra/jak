@@ -31,11 +31,11 @@ Route::get('/file-read/{slug}', [WebAppController::class, 'fileRead'])->name('fi
 Route::get('/g/{slug}', [ShortLinkController::class, 'redirect']); //untuk short link
 Route::get('/galeri', [WebAppController::class, 'galeri']); //untuk galeri
 
-Route::get('read/{slug_kategori}/{slug_judul}', [WebAppController::class, 'kontenReadSlug']);
-Route::get('download/{slug_kategori}/{slug_judul}', [WebAppController::class, 'downloadDokumenSlug']);
-Route::get('artikel/{slug_kategori}', [WebAppController::class, 'listKontenSlug']);
-Route::get('dokumen/{slug_kategori}', [WebAppController::class, 'listDokumenSlug']);
-Route::get('feedback', [WebAppController::class, 'feedback']);
+Route::get('/read/{slug_kategori}/{slug_judul}', [WebAppController::class, 'kontenReadSlug']);
+Route::get('/download/{slug_kategori}/{slug_judul}', [WebAppController::class, 'downloadDokumenSlug']);
+Route::get('/artikel/{slug_kategori}', [WebAppController::class, 'listKontenSlug']);
+Route::get('/dokumen/{slug_kategori}', [WebAppController::class, 'listDokumenSlug']);
+Route::get('/feedback', [WebAppController::class, 'feedback']);
 
 
 //route untuk akun yang sudah login, tanpa session
