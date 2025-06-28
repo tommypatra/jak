@@ -35,7 +35,7 @@ Route::get('/read/{slug_kategori}/{slug_judul}', [WebAppController::class, 'kont
 Route::get('/download/{slug_kategori}/{slug_judul}', [WebAppController::class, 'downloadDokumenSlug']);
 Route::get('/artikel/{slug_kategori}', [WebAppController::class, 'listKontenSlug']);
 Route::get('/dokumen/{slug_kategori}', [WebAppController::class, 'listDokumenSlug']);
-Route::get('/feedback', [WebAppController::class, 'feedback']);
+Route::get('/masukan', [WebAppController::class, 'masukan']);
 
 
 //route untuk akun yang sudah login, tanpa session

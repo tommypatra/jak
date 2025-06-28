@@ -90,9 +90,9 @@ class WebAppController extends Controller
 
 
 
-    public function feedback()
+    public function masukan()
     {
-        return view('feedback');
+        return view('masukan');
     }
 
     public function galeri()
