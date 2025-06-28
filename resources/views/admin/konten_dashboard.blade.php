@@ -157,6 +157,7 @@
             console.error('Gagal memuat kategori:', error);
         }
     }
+    
     $(document).ready(function() {
         init()
         async function init(){

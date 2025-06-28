@@ -15,7 +15,6 @@
 @endsection
 
 @section('container')
-
 		<section id="hero_in" class="general">
 			<div class="wrapper">
 				<div class="container">
