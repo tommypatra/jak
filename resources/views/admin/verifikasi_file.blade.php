@@ -9,17 +9,25 @@
 <h1>Verifikasi File</h1>
 <p>digunakan untuk verifikasi file pada website</p>
 
-
-<div class="row">
+<div class="row mb-2">
     <div class="col-sm-12">
-        <div class="input-group justify-content-end">
-            <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
-                Paging
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
-            </ul>
-
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <!-- Kiri: Search dan Filter -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <input type="text" class="form-control form-control-sm" id="cari-data" placeholder="Pencarian..." style="width: 200px;">            
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-cari">Cari</button>
+            </div>
+            <!-- Kanan: Tombol-tombol -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>                
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
+                        Paging
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -159,7 +167,9 @@
         })
 
 
-        function loadData(page = 1, search = '') {
+        function loadData(page = 1) {
+            let search=$("#cari-data").val();
+
             $.ajax({
                 url: vApiUrl + '?page=' + page + '&search=' + search + '&paging=' + vPaging + '&publikasi=' + vPublikasi,
                 method: 'GET',
@@ -356,6 +366,11 @@
                 }
             });
         });
+
+        $("#btn-cari").click(function(){
+            loadData();
+        })
+
 
     });
 </script>

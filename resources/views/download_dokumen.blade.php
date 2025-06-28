@@ -155,7 +155,6 @@
                   </div>
                   <div class="col-lg-7">
                     <div class="wrapper">
-                      <a href="#0" class="wish_bt"></a>
                       <div class="mt-4">
                         <a href="${base_url}/dokumen/${konten.jenis_konten_slug}">
                           <small>${konten.jenis_konten_nama}</small>
@@ -164,11 +163,12 @@
                       <a href="${url}" target="_blank">
                         <h4>${konten.judul}</h4>
                       </a>
+                      <button type="button" class="btn btn-sm btn-outline-primary wish_bt tambah-like" id="${konten.id}"><i class="icon_like"></i> <span class="jumlah-like">${konten.likedislike_count}</span></button>
+
                       <p>${konten.deskripsi}</p>
                     </div>
                     <ul>
                       <li><i class="icon_clock_alt"></i> ${tglLengkap}</li>
-                      <li><i class="icon_like"></i> ${konten.likedislike_count}</li>
                       <li><i class="icon_comment"></i> ${konten.komentar_count}</li>
                       <li><i class="bi bi-eye"></i> ${parseInt(konten.jumlah_akses)+1}</li>
                       <li><a href="${url}" target="_blank">DOWNLOAD</a></li>
@@ -332,6 +332,37 @@
     $('#komentar-berikutnya').click(function(){
       getKomentar();
     });
+
+    $(document).on('click', '.tambah-like', function(e) {
+      e.preventDefault();
+      const btn = $(this);
+      const id = btn.attr('id');
+      const box = btn.closest('.box_list');
+      const jumlah_like_element = box.find('.jumlah-like');
+
+      btn.prop('disabled', true); // Optional, biar gak spam klik    
+
+      $.ajax({
+        url: `${base_url}/api/like`,
+        type: 'POST',
+        data: { file_id: id },
+        success: function(response) {
+          if (response.status) {
+            alert("terima kasih like nya");
+            jumlah_like_element.text(response.jumlah_like);
+          } else {
+            alert("Gagal menambah like");
+          }
+        },
+        error: function() {
+          alert("Terjadi kesalahan saat menambah like");
+        },
+        complete: function() {
+          btn.prop('disabled', false);
+        }
+      });
+    });
+
     
   });	
 </script>

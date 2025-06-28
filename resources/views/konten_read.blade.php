@@ -21,7 +21,7 @@
 		<div class="container margin_60_35">
 			<div class="row">
 				<div class="col-lg-9">
-					<div class="bloglist singlepost">
+					<div class="bloglist singlepost box_list">
 						<p><img alt="" class="img-fluid" id="konten-gambar" src="{{ url('images/blog-single.jpg')}}"></p>
 						<h1 id="konten-judul">Judul</h1>
 						<div class="postmeta">
@@ -31,6 +31,7 @@
 								<li><a href="#"><i class="icon_pencil-edit"></i> <span id="konten-penulis">Admin</span></a></li>
 								<li><a href="#"><i class="icon_comment_alt"></i> (<span id="konten-komentar">0</span>) Komentar</a></li>
 								<li><a href="#"><i class="bi bi-eye"></i> <span id="konten-jumlah-akses">0</span>x Dibaca</a></li>
+								<li><button type="button" class="btn btn-sm btn-outline-primary" id="tambah-like"><i class="icon_like"></i> <span id="konten-jumlah-like">0</span></button></li>
 							</ul>
 						</div>
 						<!-- /post meta -->
@@ -130,6 +131,7 @@
             $('#konten-judul').text(konten.judul);
 
             $('#konten-jenis').text(konten.jenis_konten_nama);
+            $('#konten-jumlah-like').text(konten.likedislike_count);
             $('#konten-jumlah-akses').text(parseInt(konten.jumlah_akses)+1);
             $('#konten-jenis').parent('a').attr('href', url);
 
@@ -369,6 +371,32 @@
     $('#komentar-berikutnya').click(function(){
       getKomentar();
     });
+
+    $('#tambah-like').click(function(e){
+      e.preventDefault();
+      const btn = $(this);
+      const id = $('#konten_id').val();
+      btn.prop('disabled', true); // Optional, biar gak spam klik    
+      $.ajax({
+        url: `${base_url}/api/like`,
+        type: 'POST',
+        data: { konten_id: id },
+        success: function(response) {
+          if (response.status) {
+            alert("terima kasih like nya");
+            $('#konten-jumlah-like').text(response.jumlah_like);
+          } else {
+            alert("Gagal menambah like");
+          }
+        },
+        error: function() {
+          alert("Terjadi kesalahan saat menambah like");
+        },
+        complete: function() {
+          btn.prop('disabled', false);
+        }
+      });    
+    });    
     
   });	
 </script>

@@ -13,6 +13,15 @@ class KotakSaranController extends Controller
     {
         $dataQuery = KotakSaran::orderBy('created_at', 'desc');
 
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $dataQuery->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('komentar', 'like', '%' . $search . '%');
+            });
+        }
+
+
         $limit = $request->input('limit', 25);
         $data = $dataQuery->paginate($limit);
 

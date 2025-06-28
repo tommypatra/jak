@@ -78,7 +78,7 @@
 
   async function konten(page=1,search=""){ 
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=${jenis}&search=${search}&page=${page}&limit=10&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?web=1&jenis=${jenis}&search=${search}&page=${page}&limit=10&publikasi=1`);
       const dataResponse = await response.json();
       const row = $("#list-konten");
       const pagination = $('#pagination');
@@ -101,9 +101,10 @@
                   </figure>
                 </div>
                 <div class="col-lg-5">
-                  <div class="post_info">
-                    <small>${tglLengkap}</small>
+                  <div class="post_info box_list">
+                    <small>${tglLengkap}</small>                      
                     <h3><a href="${url}">${konten.judul}</a></h3>
+                    <button type="button" class="btn btn-sm btn-outline-primary wish_bt tambah-like" id="${konten.id}"><i class="icon_like"></i> <span class="jumlah-like">${konten.likedislike_count}</span></button>
                     <p>${konten.pembuka}</p>
                     <ul>
                       <li>
@@ -128,7 +129,7 @@
 
   async function kontenPopuler(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-konten?jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-konten?web=1&jenis=${jenis}&urut=populer&limit=5&publikasi=1`);
       const dataResponse = await response.json();
       const row = $("#list-konten-populer");
       row.empty(); 
@@ -158,7 +159,7 @@
 
   async function getGrup(){ 
     try {
-      const response = await fetch(`${base_url}/api/list-jenis-konten?slug=${jenis}`);
+      const response = await fetch(`${base_url}/api/list-jenis-konten?web=1&slug=${jenis}`);
       const dataResponse = await response.json();
       if (dataResponse.data.length > 0) {
         $('.blog-nama').text(dataResponse.data[0].nama);
@@ -221,6 +222,36 @@
       const cari=$('#search').val();
       konten(1, cari);
     });
+
+    $(document).on('click', '.tambah-like', function(e) {
+      e.preventDefault();
+      const btn = $(this);
+      const id = btn.attr('id');
+      const box = btn.closest('.box_list');
+      const jumlah_like_element = box.find('.jumlah-like');
+
+      btn.prop('disabled', true); // Optional, biar gak spam klik    
+
+      $.ajax({
+        url: `${base_url}/api/like`,
+        type: 'POST',
+        data: { konten_id: id },
+        success: function(response) {
+          if (response.status) {
+            alert("terima kasih like nya");
+            jumlah_like_element.text(response.jumlah_like);
+          } else {
+            alert("Gagal menambah like");
+          }
+        },
+        error: function() {
+          alert("Terjadi kesalahan saat menambah like");
+        },
+        complete: function() {
+          btn.prop('disabled', false);
+        }
+      });    
+    });    
 
   });	
 </script>

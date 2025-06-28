@@ -88,6 +88,13 @@ class WebAppController extends Controller
         return view('admin.galeri_dashboard');
     }
 
+
+
+    public function feedback()
+    {
+        return view('feedback');
+    }
+
     public function galeri()
     {
         return view('galeri');

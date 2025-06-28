@@ -11,16 +11,29 @@
 <hr>
 <div class="font-12">double click pada data yang akan ingin diubah</div>
 
-<div class="row">
+<div class="row mb-2">
     <div class="col-sm-12">
-        <div class="input-group justify-content-end">
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="tambah">Tambah</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
-                Paging
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
-            </ul>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+            <!-- Kiri: Search dan Filter -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <input type="text" class="form-control form-control-sm" id="cari-data" placeholder="Pencarian..." style="width: 200px;">            
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-cari">Cari</button>
+            </div>
+
+            <!-- Kanan: Tombol-tombol -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah">Tambah</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
+                
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
+                        Paging
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -117,15 +130,15 @@
                 dataType: 'json',
                 success: function(response) {
                     toastr.success('operasi berhasil dilakukan!', 'berhasil');
-                    baris.attr("data-id", response.id);
-                    baris.find("td:eq(1)").text(response.nama);
-                    baris.find("td:eq(2)").text(response.url_src);
-                    baris.find("td:eq(3)").text(response.slug);
-                    baris.find("td:eq(4)").html(shortUrl(response.slug));
+                    baris.attr("data-id", response.data.id);
+                    baris.find("td:eq(1)").text(response.data.nama);
+                    baris.find("td:eq(2)").text(response.data.url_src);
+                    baris.find("td:eq(3)").text(response.data.slug);
+                    baris.find("td:eq(4)").html(shortUrl(response.data.slug));
                     baris.find("td:eq(5)").text("0");
-                    baris.find("td:eq(6)").text(response.user.name);
+                    baris.find("td:eq(6)").text("");
                     baris.find("td:eq(7)").html(`<div class="btn-group btn-group-sm" role="group">
-                                                <button type="button" class="btn btn-danger hapusData" data-id="${response.id}">Hapus</button>
+                                                <button type="button" class="btn btn-danger hapusData" data-id="${response.data.id}">Hapus</button>
                                             </div>`);
 
                     //---------------- sembunyikan inputan -------------------
@@ -170,7 +183,7 @@
         });
 
         function shortUrl(slug) {
-            var url = base_url + '/go/' + slug;
+            var url = base_url + '/g/' + slug;
             return `<a href="${url}" target="_blank">${url}</a>`;
         }
 
@@ -197,7 +210,7 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            $(tr).find('td:nth-child(5)').text(shortUrl(slug));
+                            $(tr).find('td:nth-child(5)').html(shortUrl(slug));
                             toastr.success('operasi berhasil dilakukan!', 'berhasil');
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -214,7 +227,8 @@
 
         loadData();
 
-        function loadData(page = 1, search = '') {
+        function loadData(page = 1) {
+            let search=$("#cari-data").val();
             $.ajax({
                 url: vApiUrl + '?page=' + page + '&search=' + search + '&paging=' + vPaging,
                 method: 'GET',
@@ -293,6 +307,11 @@
                     }
                 });
         });
+
+        $("#btn-cari").click(function(){
+            loadData();
+        })
+
     });
 </script>
 @endsection

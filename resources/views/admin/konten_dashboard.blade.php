@@ -64,20 +64,40 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-2">
     <div class="col-sm-12">
-        <div class="input-group justify-content-end">
-            <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah">Tambah</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
-                Paging
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
-            </ul>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+            <!-- Kiri: Search dan Filter -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <select class="form-select form-select-sm" id="filter-data" style="width: 150px;">
+                    <option value="">Semua</option>
+                </select>
+
+                <input type="text" class="form-control form-control-sm" id="cari-data" placeholder="Pencarian..." style="width: 200px;">            
+
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-cari">Cari</button>
+            </div>
+
+            <!-- Kanan: Tombol-tombol -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah">Tambah</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
+                
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
+                        Paging
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
 </div>
+
+
 
 <div class="table-responsive">
     <table class="table">
@@ -117,10 +137,34 @@
     var vApiUrl = base_url + '/' + 'api/konten';
     var vDataGrup = [];
 
+    async function getJenisKonten() { 
+        try {
+        const response = await fetch(`${base_url}/api/get-jenis-konten?kategori=artikel&limit=50`);
+        const dataResponse = await response.json();
+        const list = $("#filter-data");
+        const select_jenis = $("#jenis_konten_id");
+        list.empty();
+        select_jenis.empty();
+        list.append(`<option value="">Semua</option>`);
+        select_jenis.append(`<option value="">Pilih</option>`);
+        if (dataResponse.data.length > 0) {
+            dataResponse.data.forEach(item => {
+                list.append(`<option value="${item.slug}">${item.nama}</option>`);
+                select_jenis.append(`<option value="${item.id}">${item.nama}</option>`);
+            });
+        }
+        } catch (error) {
+            console.error('Gagal memuat kategori:', error);
+        }
+    }
     $(document).ready(function() {
+        init()
+        async function init(){
+            await getJenisKonten();
+        }
 
-        loadJenisKonten();
         loadData();
+        
 
         $('.datepicker').bootstrapMaterialDatePicker({
             weekStart: 0,
@@ -179,37 +223,17 @@
         });
 
 
-        function loadJenisKonten() {
-            $.ajax({
-                url: base_url + '/' + 'api/get-jenis-konten?showall=true&kategori=artikel',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    $('#jenis_konten_id').empty();
-                    $.each(response.data, function(index, jenisKonten) {
-                        $('#jenis_konten_id').append('<option value="' + jenisKonten.id + '">' + jenisKonten.nama + '</option>');
-                    });
-                    // console.log(response);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
-                        forceLogout('Akses ditolak! login kembali');
-                    } else {
-                        alert('operasi gagal dilakukan!');
-                    }
-                }
-            });
-        }
-
         $('.item-paging').on('click', function() {
             vPaging = $(this).data('nilai');
             loadData();
         })
 
 
-        function loadData(page = 1, search = '') {
+        function loadData(page = 1) {
+            let search=$("#cari-data").val();
+            let jenis=$("#filter-data").val();
             $.ajax({
-                url: vApiUrl + '?page=' + page + '&search=' + search + '&paging=' + vPaging,
+                url: vApiUrl + '?page=' + page + '&jenis='+jenis+'&search=' + search + '&paging=' + vPaging,
                 method: 'GET',
                 success: function(response) {
                     var dataList = $('#data-list');
@@ -315,14 +339,14 @@
         });
 
         // Handle search form submission
-        $('.cari-data').click(function() {
-            var search = $("#search-input").val();
-            if (search.length > 3) {
-                loadData(1, search);
-            } else if (search.length === 0) {
-                loadData(1, '');
-            }
-        });
+        // $('.cari-data').click(function() {
+        //     var search = $("#search-input").val();
+        //     if (search.length > 3) {
+        //         loadData(1, search);
+        //     } else if (search.length === 0) {
+        //         loadData(1, '');
+        //     }
+        // });
 
         $("#form").validate({
             rules: {
@@ -418,6 +442,15 @@
                     }
                 });
         });
+
+        $("#filter-data").change(function(){
+            loadData();
+        })
+
+        $("#btn-cari").click(function(){
+            loadData();
+        })
+        
     });
 </script>
 @endsection

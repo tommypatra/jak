@@ -13,6 +13,15 @@ class KomentarController extends Controller
     {
         $dataQuery = Komentar::with(['konten', 'file', 'user',])->orderBy('created_at', 'desc');
 
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $dataQuery->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                    ->orWhere('komentar', 'like', '%' . $search . '%');
+            });
+        }
+
+
         if ($request->filled('konten_id')) {
             $dataQuery->where('konten_id', $request->konten_id);
         } else if ($request->filled('file_id')) {
