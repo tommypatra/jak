@@ -56,11 +56,13 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarAdmin">
             <li><a class="dropdown-item" href="{{ route('menu') }}">Menu</a></li>
+            <li><a class="dropdown-item" href="{{ route('unit-kerja') }}">Unit Kerja</a></li>
+            <li><a class="dropdown-item" href="{{ route('jabatan') }}">Jabatan</a></li>
             <li><a class="dropdown-item" href="{{ route('pengaturan-web') }}">Pengaturan Web</a></li>
             <li><a class="dropdown-item" href="{{ route('jenis-konten') }}">Jenis Konten</a></li>
             <hr class="dropdown-divider">
             <li><a class="dropdown-item" href="{{ route('grup') }}">Grup</a></li>
-            <li><a class="dropdown-item" href="{{ route('akun') }}">Akun</a></li>
+            <li><a class="dropdown-item" href="{{ route('akun') }}">Pegawai/Akun</a></li>
           </ul>
         </li>
         <li class="nav-item menu-ganti-akses" style="display:none;">
@@ -98,6 +100,7 @@
 
   <!-- Footer -->
   @include('partials_footer')
+  <script src="{{ asset('js/token.js') }}"></script>
   <script src="{{ asset('js/myapp.js?v=1') }}"></script>
   <script>
     var akses_grup = localStorage.getItem('akses_grup');
@@ -168,10 +171,15 @@
         alert(pesan);
       window.location.replace(base_url + '/login');
     }
+    // tokenCek();
+
+    var akses_grup = localStorage.getItem('akses_grup');
+    if (akses_grup) {
+        tokenCek();
+    }
 
     sesuaikanPengaturan();
   </script>
-  <!-- <script src="{{ asset('js/loading.js') }}"></script> -->
   @yield('script')
 
 </body>

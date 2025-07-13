@@ -77,6 +77,12 @@ class User extends Authenticatable
         return $this->hasMany(LikeDislike::class);
     }
 
+
+    public function jabatanUser()
+    {
+        return $this->hasMany(JabatanUser::class);
+    }
+
     public function komentar()
     {
         return $this->hasMany(Komentar::class);
@@ -104,7 +110,7 @@ class User extends Authenticatable
 
     public function profil()
     {
-        return $this->hasMany(Profil::class);
+        return $this->hasOne(Profil::class);
     }
 
     public function pengaturanweb()

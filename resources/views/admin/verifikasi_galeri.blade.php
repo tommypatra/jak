@@ -81,6 +81,7 @@
                         <div class="col-sm-12 mb-3">
                             <label for="judul" class="form-label">Judul</label>
                             <input type="text" class="form-control w-100" id="judul" name="judul" required>
+                            <img class="mt-2" src="" id="foto-show" height="200px">
                         </div>
                     </div>
                 </form>
@@ -123,7 +124,6 @@
 @section('script')
 
 <script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/token.js') }}"></script>
 <script src="{{ asset('plugins/viewbox-master/jquery.viewbox.min.js') }}"></script>
 
 <script>
@@ -307,6 +307,7 @@
                     $('#galeri_id').val(response.data.id);
                     $('#judul').val(response.data.judul);
                     $('#waktu').val(response.data.waktu);
+                    $('#foto-show').attr('src',`${base_url}${response.data.path}`);
 
                     if (response.data.publikasi) {
                         $('#formVerifikasi_id').val(response.data.publikasi.id);

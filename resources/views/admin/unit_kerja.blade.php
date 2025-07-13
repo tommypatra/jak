@@ -1,57 +1,41 @@
 @extends('template_dashboard')
 
 @section('head')
-<title>Slide Show Web</title>
+<title>Unit Kerja Website</title>
 @endsection
 
 @section('container')
 
-<h1>Slide Show</h1>
-<p>digunakan untuk mengelola slide yang akan tayang pada website ini </p>
+<h1>Unit Kerja</h1>
+<p>digunakan untuk mengelola unit kerja</p>
 
 <div class="accordion mb-3" id="frmAcr">
     <div class="accordion-item">
         <h2 class="accordion-header" id="frm-acr-header">
             <button class="accordion-button collapsed" id="tambahForm" type="button" data-bs-toggle="collapse" data-bs-target="#bodyAcr" aria-expanded="false" aria-controls="aria-acr-controls">
-                <h3>Form Slide</h3>
+                <h3>Formulir Unit Kerja</h3>
             </button>
         </h2>
         <div id="bodyAcr" class="accordion-collapse collapse" aria-labelledby="frm-acr-header" data-bs-parent="#frmAcr">
             <div class="accordion-body">
                 <form id="form">
-                    <div class="row">
-                        <input type="hidden" name="id" id="id">
-                        <div class="col-md-7 mb-3">
-                            <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control w-100" id="judul" name="judul" required>
-                        </div>
-                        <div class="col-md-5 mb-3">
-                            <label for="path" class="form-label">File Gambar</label>
-                            <input type="file" class="form-control w-100" id="path" name="file" accept="image/*" required>
-                            <div class="font-12">ukuran gambar lebarxtinggi 970x450 (pixel)</div>
-        
-                            <div class="col-sm-3">
-                                <div id="preview-img"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea rows="4" class="form-control w-100" id="deskripsi" name="deskripsi"></textarea>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="is_publikasi" class="form-label">Aktif</label>
-                            <select class="form-control w-100" id="is_publikasi" name="is_publikasi" required>
-                                <option value="1" selected>Aktif</option>
-                                <option value="0">Tidak Aktif</option>
-                            </select>
-                        </div>
+                    <input type="hidden" name="id" id="id">
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Unit Kerja</label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                            <button type="button" class="btn btn-warning batal">Batal</button>
-                        </div>
+                    <div class="mb-3">
+                        <label for="unit_kerja_id" class="form-label">Unit Kerja Induk</label>
+                        <select class="form-control" id="unit_kerja_id" name="unit_kerja_id" >
+                            <option value="">pilih</option>
+                        </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="urut" class="form-label">Nomor Urut</label>
+                        <input type="number" class="form-control" id="urut" name="urut" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-warning batal">Batal</button>
                 </form>
             </div>
         </div>
@@ -78,9 +62,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Judul/ Deskripsi</th>
-                <th scope="col">Gambar</th>
-                <th scope="col">Aktif</th>
+                <th scope="col">Unit Kerja</th>
+                <th scope="col">Induk</th>
+                <th scope="col">Nomor Urut</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
@@ -95,15 +79,58 @@
     </ul>
 </nav>
 
+<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormLabel">Akses Grup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAkses">
+                    <input type="hidden" name="user_id" id="user_id">
+                    <div id="checkboxContainer"></div>
+                    <hr>
+                    <button type="submit" class="btn btn-sm btn-primary" id="simpanAkses">Perbaharui Akses</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 <script src="{{ asset('js/pagination.js') }}"></script>
 
 <script>
-    var vApiUrl = base_url + '/' + 'api/slide-show';
+    var vApiUrl = base_url + '/' + 'api/unit-kerja';
     var vDataGrup = [];
+
     $(document).ready(function() {
+        loadGrup();
+        function loadGrup() {
+            $('#unit_kerja_id').empty(); 
+            $('#unit_kerja_id').append('<option value="">pilih</option>'); 
+            $.ajax({
+                url: base_url + '/' + 'api/unit-kerja?limit=100',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, dt) {
+                            $('#unit_kerja_id').append('<option value="' + dt.id + '">' + dt.nama + '</option>');
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+                        forceLogout('Akses ditolak! login kembali');
+                    } else {
+                        alert('Operasi gagal dilakukan!');
+                    }
+                }
+            });
+        }
 
         loadData();
 
@@ -117,24 +144,20 @@
                     dataList.empty();
 
                     $.each(response.data, function(index, dt) {
-                        var pathImg = base_url + dt.path;
-                        var publikasi = (dt.is_publikasi) ? `<span class="badge text-bg-success">Aktif</span>` : `<span class="badge text-bg-danger">Tidak Aktif</span>`;
-
+                        var hakakses = '';
+                        // console.log(dt.aturgrup);
+                        var pimpinan_utama=(dt.is_pimpinan_utama)?"Ya":"Tidak";
+                        var unit_kerja=(dt.unit_kerja_parent)?dt.unit_kerja_parent.nama:"";
                         dataList.append(`<tr data-id="${dt.id}"> 
-                            <td>${++index}</td> 
-                            <td>
-                                <i class="bi bi-person"></i> ${dt.user_name}
-                                <div class="font-12">${dt.updated_at}</div>
-                                <div>${dt.judul}</div>
-                                <div>${myLabel(dt.deskripsi)}</div>
-                            </td> 
-                            <td><img src="${pathImg}" width="350px"></td> 
-                            <td>${publikasi}</td> 
+                            <td>${index+1}</td> 
+                            <td>${dt.nama}</td>
+                            <td>${unit_kerja}</td> 
+                            <td>${dt.urut}</td> 
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-primary gantiData" data-id="${dt.id}">Ganti</button>
-                                    <button type="button" class="btn btn-danger hapusData" data-id="${dt.id}">Hapus</button>
-                                </div>
+                                    <button type="button" class="btn btn-primary gantiData" data-id="${dt.id}" >Ganti</button>
+                                    <button type="button" class="btn btn-danger hapusData" data-id="${dt.id}" >Hapus</button>
+                                </div>                                        
                             </td>
                         </tr>`);
                     });
@@ -152,31 +175,19 @@
         }
 
         $('#bodyAcr').on('shown.bs.collapse', function() {
-            $('#judul').focus();
+            $('#nama').focus();
         });
 
         function resetForm() {
             $('#form input').val('');
             $('#form')[0].reset();
-            $('#preview-img').html('');
         }
 
-        $('#path').on('change', function(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function() {
-                var dataURL = reader.result;
-                $('#preview-img').html('<img src="' + dataURL + '" width="200%" alt="Preview Image">');
-            };
-            reader.readAsDataURL(input.files[0]);
-        });
-
-
-        $(document).on('click', '#tambah', function() {
+        $("#tambah").on("click", function() {
             $('html, body').scrollTop($('#tambahForm').offset().top);
             $('#bodyAcr').collapse('show'); // Menampilkan accordion
             resetForm();
-            $('#judul').focus();
+            $('#nama').focus();
         });
 
         $(document).on('click', '.batal', function(event) {
@@ -184,6 +195,13 @@
             resetForm();
             $('#bodyAcr').collapse('hide');
         });
+
+        // function batal(event) {
+        //     event.preventDefault();
+        //     resetForm();
+        //     $('#name').focus();
+        //     $('#bodyAcr').collapse('hide');
+        // }
 
         // Handle page change
         $(document).on('click', '.page-link', function() {
@@ -213,29 +231,29 @@
 
         $("#form").validate({
             rules: {
-                file: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
                     required: function(element) {
                         return $('#id').val().trim() === '';
-                    }
+                    },
+                    minlength: 8
                 }
             },
             submitHandler: function(form) {
                 var selectedPage = $('.page-item.active .page-link').data('page');
-                var formData = new FormData($(form)[0]);
-                var vUrl = vApiUrl;
-
-                if ($('#id').val() !== '') {
+                let vType = ($('#id').val() === '') ? 'POST' : 'PUT';
+                let vUrl = vApiUrl;
+                if (vType === 'PUT')
                     vUrl = vApiUrl + '/' + $('#id').val();
-                    formData.append("_method", "PUT");
-                }
 
                 $.ajax({
                     url: vUrl,
-                    type: 'POST',
-                    data: formData,
+                    type: vType,
+                    data: $(form).serialize(),
                     dataType: 'json',
-                    processData: false,
-                    contentType: false,
                     success: function(response) {
                         toastr.success('operasi berhasil dilakukan!', 'berhasil');
                         loadData(selectedPage); // Reload pesan list after submission
@@ -252,6 +270,7 @@
             }
         });
 
+        //ganti
         $(document).on('click', '.gantiData', function() {
             var id = $(this).data('id');
             var selectedPage = $('.page-item.active .page-link').data('page');
@@ -262,14 +281,10 @@
                 success: function(response) {
                     $('html, body').scrollTop($('#tambahForm').offset().top);
                     $('#bodyAcr').collapse('show'); // Menampilkan accordion
-                    $('#id').val(response.data.id);
-                    $('#judul').val(response.data.judul);
-                    $('#deskripsi').val(response.data.deskripsi);
-                    $('#is_publikasi').val(response.data.is_publikasi);
-
-                    if (response.data.path)
-                        $('#preview-img').html('<img src="' + response.data.path + '" width="200%" alt="Preview Image">');
-
+                    $('#id').val(response.id);
+                    $('#nama').val(response.nama);
+                    $('#urut').val(response.urut);
+                    $('#unit_kerja_id').val(response.unit_kerja_id);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
@@ -281,6 +296,7 @@
             });
         });
 
+        //hapus
         $(document).on('click', '.hapusData', function() {
             var id = $(this).data('id');
             var selectedPage = $('.page-item.active .page-link').data('page');
@@ -302,6 +318,52 @@
                     }
                 });
         });
+
+        // function hapusAkses(id){
+        $(document).on('click', '.hapusAkses', function() {
+            var id = $(this).data('id');
+            var selectedPage = $('.page-item.active .page-link').data('page');
+            if (confirm('apakah anda yakin?'))
+                $.ajax({
+                    url: base_url + '/' + 'api/atur-grup/' + id,
+                    method: 'DELETE',
+                    dataType: 'json',
+                    success: function(response) {
+                        loadData(selectedPage);
+                        toastr.success('operasi berhasil dilakukan!', 'berhasil');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+                            forceLogout('Akses ditolak! login kembali');
+                        } else {
+                            alert('operasi gagal dilakukan!');
+                        }
+                    }
+                });
+        });
+
+        $('#formAkses').submit(function(event) {
+            event.preventDefault();
+            var selectedPage = $('.page-item.active .page-link').data('page');
+            $.ajax({
+                url: base_url + '/' + 'api/atur-grup',
+                method: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    loadData(selectedPage);
+                    toastr.success('set akses akun berhasil dilakukan!', 'berhasil');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+                        forceLogout('Akses ditolak! login kembali');
+                    } else {
+                        alert('operasi gagal dilakukan!');
+                    }
+                }
+            });
+        });
+
     });
 </script>
 @endsection

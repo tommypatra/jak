@@ -105,9 +105,7 @@
 
 @section('script')
 
-<script src="{{ asset('js/myapp.js') }}"></script>
 <script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/token.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap-material-moment/moment.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
 <script src="{{ asset('plugins/viewbox-master/jquery.viewbox.min.js') }}"></script>

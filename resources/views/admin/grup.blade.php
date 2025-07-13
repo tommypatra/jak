@@ -33,7 +33,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Nama Grup</th>
                 <th scope="col">User</th>
-                <th scope="col">Waktu</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
@@ -52,7 +51,6 @@
 
 @section('script')
 <script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/token.js') }}"></script>
 
 <script>
     var vApiUrl = base_url + '/' + 'api/grup';
@@ -203,10 +201,9 @@
                     $.each(response.data, function(index, dt) {
 
                         dataList.append(`<tr data-id="${dt.id}"> 
-                            <td>${dt.nomor}</td> 
+                            <td>${index+1}</td> 
                             <td>${dt.nama}</td> 
                             <td>${dt.user.name}</td> 
-                            <td>${dt.updated_at_format}</td> 
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button type="button" class="btn btn-danger hapusData" data-id="${dt.id}">Hapus</button>

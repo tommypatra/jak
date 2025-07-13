@@ -49,7 +49,7 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/myapp.js?new=true') }}"></script>
+{{-- <script src="{{ asset('js/myapp.js?new=true') }}"></script> --}}
 {{-- <script src="{{ asset('js/token.js') }}"></script> --}}
 <script>
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -57,9 +57,6 @@
 
     var akses_grup = localStorage.getItem('akses_grup');
     if (akses_grup) {
-        toastr.success('sesi login anda masih aktif!', 'login berhasil', {
-            timeOut: 1000
-        });
         window.location.replace(goUrl);
     }
 
@@ -87,27 +84,5 @@
             });
         }
     });
-
-    function setSession(form) {
-        $.ajax({
-            url: base_url + '/' + 'set-session',
-            type: 'POST',
-            data: $(form).serialize(),
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            success: function(response) {
-                toastr.success('set session berhasil, akan diarahkan ke halaman dashboard!', 'login berhasil', {
-                    timeOut: 1000
-                });
-                var goUrl = `{{ url('/dashboard') }}`;
-                window.location.replace(goUrl);
-            },
-            error: function(error) {
-                toastr.danger('set session gagal, hubungi admin!', 'login gagal');
-                console.error(error);
-            }
-        });
-    }
 </script>
 @endsection

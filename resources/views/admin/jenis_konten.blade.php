@@ -55,7 +55,6 @@
 
 @section('script')
 <script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/token.js') }}"></script>
 
 <script>
     var vApiUrl = base_url + '/' + 'api/jenis-konten';

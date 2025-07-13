@@ -2,25 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
-use App\Http\Requests\AkunRequest;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UnitKerjaRequest;
+use Illuminate\Support\Facades\DB;
 
-
-class AkunController extends Controller
+class UnitKerjaController extends Controller
 {
     public function index(Request $request)
     {
-        $dataQuery = User::with(['aturgrup.grup', 'profil', 'jabatanUser.jabatan', 'jabatanUser.unitKerja'])->orderBy('name', 'asc');
-
-        if ($request->filled('user_id')) {
-            $dataQuery->where('id', $request->user_id);
-        }
-
+        $dataQuery = UnitKerja::with(['unitKerjaParent'])->orderBy('urut', 'asc')->orderBy('nama', 'asc');
         if ($request->filled('search')) {
-            $dataQuery->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('email', 'like', '%' . $request->search . '%');
+            $dataQuery->where('nama', 'like', '%' . $request->search . '%');
         }
 
         $limit = $request->input('limit', 25);
@@ -29,14 +22,11 @@ class AkunController extends Controller
         return response()->json($data);
     }
 
-    public function store(AkunRequest $request)
+    public function store(UnitKerjaRequest $request)
     {
-
         try {
             DB::beginTransaction();
-            $dataSave = $request->validated();
-            $dataSave['password'] = Hash::make($dataSave['password']);
-            $data = User::create($dataSave);
+            $data = UnitKerja::create($request->validated());
             DB::commit();
             return response()->json(['status' => true, 'message' => 'data baru berhasil dibuat', 'data' => $data], 201);
         } catch (\Exception $e) {
@@ -47,23 +37,19 @@ class AkunController extends Controller
 
     public function show($id)
     {
-        $dataQuery = User::with(['aturgrup.grup'])->find($id);
+        $dataQuery = UnitKerja::find($id);
         if (!$dataQuery) {
             return response()->json(['message' => 'data tidak ditemukan'], 404);
         }
         return response()->json($dataQuery);
     }
 
-    public function update(AkunRequest $request, $id)
+    public function update(UnitKerjaRequest $request, $id)
     {
         DB::beginTransaction();
         try {
-            $dataQuery = AturGrup::findOrFail($id);
-            $dataSave = $request->validated();
-            if ($request->password) {
-                $dataSave['password'] = Hash::make($dataSave['password']);
-            }
-            $dataQuery->update($dataSave);
+            $dataQuery = UnitKerja::findOrFail($id);
+            $dataQuery->update($request->validated());
             DB::commit();
             return response()->json($dataQuery, 200);
         } catch (\Exception $e) {
@@ -76,7 +62,7 @@ class AkunController extends Controller
     {
         DB::beginTransaction();
         try {
-            $dataQuery = User::findOrFail($id);
+            $dataQuery = UnitKerja::findOrFail($id);
             $dataQuery->delete();
             DB::commit();
             return response()->json(null, 204);

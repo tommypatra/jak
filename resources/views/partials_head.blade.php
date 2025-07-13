@@ -28,10 +28,10 @@
     padding-bottom: 70px; /* Menambahkan ruang bawah agar konten tidak tertutupi oleh footer */
   }
 
-  .form-control {
-      min-width: 150px; /* Atur lebar minimum di sini */
-      width: auto; /* Biarkan lebar menyesuaikan isi */
-  }
+  /* .form-control {
+      min-width: 150px;
+      width: 100%;
+  } */
 
   .w-100 {
       width: 100%;

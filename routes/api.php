@@ -1,29 +1,31 @@
 <?php
 
+use App\Models\SlideShow;
+use App\Models\LikeDislike;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AkunController;
-use App\Http\Controllers\AturGrupController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\GrupController;
-use App\Http\Controllers\HtmlCodeController;
-use App\Http\Controllers\ImageEditorController;
-use App\Http\Controllers\JenisKontenController;
-use App\Http\Controllers\KomentarController;
-use App\Http\Controllers\KontenController;
-use App\Http\Controllers\KotakSaranController;
-use App\Http\Controllers\LikeDislikeController;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\PengaturanWebController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\KontenController;
+use App\Http\Controllers\WebAppController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\AturGrupController;
+use App\Http\Controllers\HtmlCodeController;
+use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\SlideShowController;
-use App\Http\Controllers\WebAppController;
-use App\Models\LikeDislike;
-use App\Models\SlideShow;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UnitKerjaController;
+use App\Http\Controllers\KotakSaranController;
+use App\Http\Controllers\ImageEditorController;
+use App\Http\Controllers\JenisKontenController;
+use App\Http\Controllers\LikeDislikeController;
+use App\Http\Controllers\PengaturanWebController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +74,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::get('/get-pegawai', [AkunController::class, 'index']);
+
+    Route::resource('/profil-pegawai', ProfilController::class);
+
     Route::post('/upload-image-editor', [ImageEditorController::class, 'upload']);
     Route::resource('konten', KontenController::class);
     Route::resource('file', FileController::class);
@@ -85,6 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(['is.admin'])->group(function () {
         Route::resource('menu', MenuController::class);
         Route::resource('publikasi', PublikasiController::class);
+        Route::resource('unit-kerja', UnitKerjaController::class);
+        Route::resource('jabatan', JabatanController::class);
         Route::resource('jenis-konten', JenisKontenController::class);
         Route::resource('grup', GrupController::class);
         Route::resource('pengaturan-web', PengaturanWebController::class);

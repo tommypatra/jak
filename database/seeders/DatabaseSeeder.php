@@ -8,15 +8,17 @@ use App\Models\Grup;
 use App\Models\Menu;
 use App\Models\User;
 use App\Models\Konten;
+use App\Models\Jabatan;
 use App\Models\AturGrup;
 use App\Models\HtmlCode;
 use App\Models\Komentar;
 use App\Models\Publikasi;
-use App\Models\JenisKonten;
+use App\Models\SlideShow;
+use App\Models\UnitKerja;
 use App\Models\KotakSaran;
+use App\Models\JenisKonten;
 use App\Models\LikeDislike;
 use App\Models\PengaturanWeb;
-use App\Models\SlideShow;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 // use Faker\Provider\File;
@@ -229,5 +231,46 @@ class DatabaseSeeder extends Seeder
                             </ul>
                         </div>',
         ]);
+
+
+        //untuk atur jabatan
+        $dtdef = [
+            ['nama' => 'Rektor', 'urut' => 1, 'is_pimpinan_utama' => 1],
+            ['nama' => 'Wakil Rektor 1', 'urut' => 1, 'is_pimpinan_utama' => 1],
+            ['nama' => 'Wakil Rektor 2', 'urut' => 1, 'is_pimpinan_utama' => 1],
+            ['nama' => 'Wakil Rektor 3', 'urut' => 1, 'is_pimpinan_utama' => 1],
+            ['nama' => 'Dekan', 'urut' => 1, 'is_pimpinan_utama' => 1],
+            ['nama' => 'Ketua Prodi', 'urut' => 1, 'is_pimpinan_utama' => 0],
+            ['nama' => 'Dosen', 'urut' => 1, 'is_pimpinan_utama' => 0],
+            ['nama' => 'Tenaga Kependidikan', 'urut' => 1, 'is_pimpinan_utama' => 0],
+        ];
+
+        foreach ($dtdef as $dt) {
+            Jabatan::create([
+                'nama' => $dt['nama'],
+                'urut' => $dt['urut'],
+                'is_pimpinan_utama' => $dt['is_pimpinan_utama'],
+            ]);
+        }
+
+
+        //untuk atur jabatan
+        $dtdef = [
+            ['nama' => 'Rektorat', 'urut' => 1, 'unit_kerja_id' => null],
+            ['nama' => 'Fakultas Tarbiyah dan Ilmu Keguruan', 'urut' => 2, 'unit_kerja_id' => null],
+            ['nama' => 'Fakultas Syariah', 'urut' => 3, 'unit_kerja_id' => null],
+            ['nama' => 'Fakultas Ushuludin Adab dan Dakwah', 'urut' => 4, 'unit_kerja_id' => null],
+            ['nama' => 'Program Studi Ahwal Al-Syakhshiyyah', 'urut' => 5, 'unit_kerja_id' => 3],
+            ['nama' => 'Program Studi Ilmu Al-Quran dan Tafsir', 'urut' => 6, 'unit_kerja_id' => 4],
+            ['nama' => 'Program Studi Pendidikan Bahasa Arab', 'urut' => 7, 'unit_kerja_id' => 2],
+        ];
+
+        foreach ($dtdef as $dt) {
+            UnitKerja::create([
+                'nama' => $dt['nama'],
+                'urut' => $dt['urut'],
+                'unit_kerja_id' => $dt['unit_kerja_id'],
+            ]);
+        }
     }
 }

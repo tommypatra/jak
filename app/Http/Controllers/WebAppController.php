@@ -9,40 +9,6 @@ use Illuminate\Support\Facades\Http;
 class WebAppController extends Controller
 {
 
-    public function setSession(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-        ]);
-        $credentials = $request->only('email', 'password');
-        if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Kombinasi email dan password tidak valid',
-            ], 404);
-        }
-        $user = Auth::user();
-        Auth::login($user);
-        $respon_data = [
-            'message' => 'Proses login selesai dilakukan',
-        ];
-        return response()->json($respon_data, 200);
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return response()->json(['message' => 'Logged out successfully'], 200);
-    }
-
-    public function session()
-    {
-        dd(auth()->user());
-    }
-
     public function dashboard()
     {
         return view('admin.dashboard');
@@ -51,6 +17,16 @@ class WebAppController extends Controller
     public function web()
     {
         return view('website');
+    }
+
+    public function unitKerja()
+    {
+        return view('admin.unit_kerja');
+    }
+
+    public function jabatan()
+    {
+        return view('admin.jabatan');
     }
 
     public function jenisKonten()
@@ -71,6 +47,11 @@ class WebAppController extends Controller
     public function akun()
     {
         return view('admin.akun');
+    }
+
+    public function pegawai()
+    {
+        return view('admin.pegawai');
     }
 
     public function menu()

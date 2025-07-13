@@ -33,24 +33,27 @@ Route::get('/feedback', [WebAppController::class, 'feedback']);
 
 
 //route untuk akun yang sudah login, tanpa session
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/set-akses/{id}', [WebAppController::class, 'setAkses'])->name('setAkses');
-    Route::post('/web-logout', [WebAppController::class, 'logout']);
-    Route::get('/kotak-saran', [WebAppController::class, 'kotakSaran'])->name('kotak-saran');
-    Route::get('/short-link', [WebAppController::class, 'shortLink'])->name('short-link');
-    Route::get('/dashboard', [WebAppController::class, 'dashboard'])->name('dashboard');
-    Route::get('/jenis-konten', [WebAppController::class, 'jenisKonten'])->name('jenis-konten');
-    Route::get('/grup', [WebAppController::class, 'grup'])->name('grup');
-    Route::get('/pengaturan-web', [WebAppController::class, 'pengaturanWeb'])->name('pengaturan-web');
-    Route::get('/akun', [WebAppController::class, 'akun'])->name('akun');
-    Route::get('/menu', [WebAppController::class, 'menu'])->name('menu');
-    Route::get('/html-code', [WebAppController::class, 'htmlCode'])->name('html-code');
-    Route::get('/slide-show', [WebAppController::class, 'slideShow'])->name('slide-show');
-    Route::get('/konten-dashboard', [WebAppController::class, 'kontenDashboard'])->name('konten-dashboard');
-    Route::get('/galeri-dashboard', [WebAppController::class, 'galeriDashboard'])->name('galeri-dashboard');
-    Route::get('/file-dashboard', [WebAppController::class, 'fileDashboard'])->name('file-dashboard');
-    Route::get('/verifikasi-konten', [WebAppController::class, 'verifikasiKonten'])->name('verifikasi-konten');
-    Route::get('/verifikasi-file', [WebAppController::class, 'verifikasiFile'])->name('verifikasi-file');
-    Route::get('/verifikasi-galeri', [WebAppController::class, 'verifikasiGaleri'])->name('verifikasi-galeri');
-    Route::get('/verifikasi-komentar', [WebAppController::class, 'verifikasiKomentar'])->name('verifikasi-komentar');
-});
+// Route::group(['middleware' => 'auth'], function () {
+Route::get('/set-akses/{id}', [WebAppController::class, 'setAkses'])->name('setAkses');
+Route::post('/web-logout', [WebAppController::class, 'logout']);
+Route::get('/kotak-saran', [WebAppController::class, 'kotakSaran'])->name('kotak-saran');
+Route::get('/short-link', [WebAppController::class, 'shortLink'])->name('short-link');
+Route::get('/dashboard', [WebAppController::class, 'dashboard'])->name('dashboard');
+Route::get('/unit-kerja', [WebAppController::class, 'unitKerja'])->name('unit-kerja');
+Route::get('/jabatan', [WebAppController::class, 'jabatan'])->name('jabatan');
+Route::get('/jenis-konten', [WebAppController::class, 'jenisKonten'])->name('jenis-konten');
+Route::get('/grup', [WebAppController::class, 'grup'])->name('grup');
+Route::get('/pengaturan-web', [WebAppController::class, 'pengaturanWeb'])->name('pengaturan-web');
+Route::get('/akun', [WebAppController::class, 'akun'])->name('akun');
+Route::get('/menu', [WebAppController::class, 'menu'])->name('menu');
+Route::get('/pegawai', [WebAppController::class, 'pegawai'])->name('pegawai');
+Route::get('/html-code', [WebAppController::class, 'htmlCode'])->name('html-code');
+Route::get('/slide-show', [WebAppController::class, 'slideShow'])->name('slide-show');
+Route::get('/konten-dashboard', [WebAppController::class, 'kontenDashboard'])->name('konten-dashboard');
+Route::get('/galeri-dashboard', [WebAppController::class, 'galeriDashboard'])->name('galeri-dashboard');
+Route::get('/file-dashboard', [WebAppController::class, 'fileDashboard'])->name('file-dashboard');
+Route::get('/verifikasi-konten', [WebAppController::class, 'verifikasiKonten'])->name('verifikasi-konten');
+Route::get('/verifikasi-file', [WebAppController::class, 'verifikasiFile'])->name('verifikasi-file');
+Route::get('/verifikasi-galeri', [WebAppController::class, 'verifikasiGaleri'])->name('verifikasi-galeri');
+Route::get('/verifikasi-komentar', [WebAppController::class, 'verifikasiKomentar'])->name('verifikasi-komentar');
+// });

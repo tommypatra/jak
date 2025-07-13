@@ -85,6 +85,7 @@
                         <div class="col-sm-12 mb-3">
                             <label for="judul" class="form-label">Judul</label>
                             <input type="text" class="form-control w-100" id="judul" name="judul" required>
+                            <a href="javascript:;" id="link-download" target="_blank">Download Dokumen</a>
                         </div>
                         <div class="col-sm-12 mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi Dokumen</label>
@@ -131,7 +132,6 @@
 @section('script')
 
 <script src="{{ asset('js/pagination.js') }}"></script>
-<script src="{{ asset('js/token.js') }}"></script>
 
 <script>
     var vPublikasi = 2;
@@ -259,7 +259,7 @@
             simpanKonten(selectedPage);
         });
 
-                $(document).on('click', '.btnHapus', function() {
+        $(document).on('click', '.btnHapus', function() {
             var id = $(this).data('id');
             var selectedPage = $('.page-item.active .page-link').data('page');
             if (confirm('apakah anda yakin?'))
@@ -342,6 +342,7 @@
                 dataType: 'json',
                 success: function(response) {
                     $('#id').val(response.data.id);
+                    $('#link-download').attr('href',`${base_url}${response.data.path}`);
                     $('#file_id').val(response.data.id);
                     $('#judul').val(response.data.judul);
                     $('#slug').val(response.data.slug);

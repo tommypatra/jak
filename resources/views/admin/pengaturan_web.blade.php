@@ -124,7 +124,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/token.js') }}"></script>
 
 <script>
     var vApiUrl = base_url + '/' + 'api/pengaturan-web';
