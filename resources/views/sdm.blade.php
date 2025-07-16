@@ -72,7 +72,7 @@
   async function konten(page=1){ 
     try {
       const search=$('#search-input').val();
-      const response = await fetch(`${base_url}/api/list-sdm?web=1&kategori=${kategori}&search=${search}&page=${page}&limit=2&publikasi=1`);
+      const response = await fetch(`${base_url}/api/list-sdm?web=1&kategori=${kategori}&search=${search}&page=${page}&limit=10`);
       const dataResponse = await response.json();
       const row = $("#list-file");
       const pagination = $('#pagination');
