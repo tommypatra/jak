@@ -15,7 +15,7 @@ class CreateUnitKerjasTable extends Migration
     {
         Schema::create('unit_kerjas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 180)->unique();
+            $table->string('nama', 180);
             $table->integer('urut');
             $table->foreignId('unit_kerja_id')->nullable();
             $table->foreign('unit_kerja_id')->references('id')->on('unit_kerjas')->restrictOnDelete();
