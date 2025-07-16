@@ -171,10 +171,10 @@
     }
     // tokenCek();
 
-    var akses_grup = localStorage.getItem('akses_grup');
-    if (akses_grup) {
-        tokenCek();
-    }
+    // var akses_grup = localStorage.getItem('akses_grup');
+    // if (akses_grup) {
+    tokenCek();
+    // }
 
     sesuaikanPengaturan();
   </script>
