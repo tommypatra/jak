@@ -164,9 +164,7 @@
           console.log(respose);
         },
       });
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('daftar_akses');
-      localStorage.removeItem('akses_grup');
+      localStorage.clear();
       if (pesan)
         alert(pesan);
       window.location.replace(base_url + '/login');
