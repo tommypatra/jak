@@ -196,8 +196,8 @@
 	<script src="{{url('template/udema_v_3.3/html_menu_1')}}/js/main.js"></script>
 	<script src="{{url('template/udema_v_3.3/html_menu_1')}}/assets/validate.js"></script>
 
-	<script src="{{ asset('js/myapp.js?v=2') }}"></script>
-	<script src="{{url('/js/iiq_web.js?v=2')}}"></script>
+	<script src="{{ asset('js/myapp.js?v=3') }}"></script>
+	<script src="{{url('/js/iiq_web.js?v=3')}}"></script>
 
 	@yield('script')
 </body>
