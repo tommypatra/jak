@@ -100,8 +100,8 @@
 
   <!-- Footer -->
   @include('partials_footer')
-  <script src="{{ asset('js/token.js?v=6') }}"></script>
-  <script src="{{ asset('js/myapp.js?v=6') }}"></script>
+  <script src="{{ asset('js/token.js?v=7') }}"></script>
+  <script src="{{ asset('js/myapp.js?v=7') }}"></script>
   <script>
     var akses_grup = localStorage.getItem('akses_grup');
     var daftar_akses = JSON.parse(localStorage.getItem('daftar_akses'));

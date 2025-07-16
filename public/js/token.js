@@ -7,13 +7,17 @@ $.ajaxSetup({
 
 function tokenCek() {
     var akses_grup = localStorage.getItem('akses_grup');
+    var currentPath = window.location.pathname;
 
-    // Jika akses_grup tidak ada, langsung forceLogout
+    // Jika akses_grup tidak ada
     if (!akses_grup) {
+        if (currentPath === '/login') {
+            return;
+        }
         forceLogout('Sesi tidak ditemukan. Silakan login kembali.');
         return;
-    }    
-    // alert(akses_grup);
+    }
+
     $.ajax({
         url: base_url + '/' + 'api/token-cek/'+akses_grup,
         method: 'get',
