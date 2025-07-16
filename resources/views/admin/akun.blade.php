@@ -429,10 +429,10 @@
                         let jabatan='';
                         let unit_kerja =''
                         if(dt.profil){
-                            if(dt.profil.is_administrasi){
+                            if(dt.profil.is_administrasi==1){
                                 status_pegawai+='<span class="badge text-bg-success ms-1">Administrasi</span>';
                             }
-                            if(dt.profil.is_dosen){
+                            if(dt.profil.is_dosen==1){
                                 status_pegawai+='<span class="badge text-bg-primary ms-1">Dosen</span>';
                             }
                             unit_kerja=dt.profil.unit_kerja?dt.profil.unit_kerja.nama:"";
