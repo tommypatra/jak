@@ -109,9 +109,9 @@
 
 
           // badge dosen/admin
-          const badgeDosen = profil.is_dosen
+          const badgeDosen = profil.is_dosen==1
             ? `<span class="badge bg-success me-1">Dosen</span>` : '';
-          const badgeAdmin = profil.is_administrasi
+          const badgeAdmin = profil.is_administrasi==1
             ? `<span class="badge bg-warning text-dark">Administrasi</span>` : '';
 
           const html = `
