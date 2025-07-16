@@ -100,8 +100,8 @@
 
   <!-- Footer -->
   @include('partials_footer')
-  <script src="{{ asset('js/token.js?v=3') }}"></script>
-  <script src="{{ asset('js/myapp.js?v=3') }}"></script>
+  <script src="{{ asset('js/token.js?v=4') }}"></script>
+  <script src="{{ asset('js/myapp.js?v=4') }}"></script>
   <script>
     var akses_grup = localStorage.getItem('akses_grup');
     var daftar_akses = JSON.parse(localStorage.getItem('daftar_akses'));
@@ -171,10 +171,10 @@
     }
     // tokenCek();
 
-    // var akses_grup = localStorage.getItem('akses_grup');
-    // if (akses_grup) {
-    tokenCek();
-    // }
+    var akses_grup = localStorage.getItem('akses_grup');
+    if (akses_grup) {
+        tokenCek();
+    }
 
     sesuaikanPengaturan();
   </script>
