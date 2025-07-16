@@ -16,7 +16,7 @@ function tokenCek() {
             console.log(response);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+            if (jqXHR.status === 401) {
                 forceLogout('Silahkan login kembali');
             } else {
                 alert('gagal dilakukan!');
