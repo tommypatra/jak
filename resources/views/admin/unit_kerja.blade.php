@@ -258,6 +258,7 @@
                         toastr.success('operasi berhasil dilakukan!', 'berhasil');
                         loadData(selectedPage); // Reload pesan list after submission
                         resetForm();
+                        loadGrup();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
@@ -307,6 +308,7 @@
                     dataType: 'json',
                     success: function(response) {
                         loadData(selectedPage);
+                        loadGrup();
                         toastr.success('operasi berhasil dilakukan!', 'berhasil');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -319,50 +321,6 @@
                 });
         });
 
-        // function hapusAkses(id){
-        $(document).on('click', '.hapusAkses', function() {
-            var id = $(this).data('id');
-            var selectedPage = $('.page-item.active .page-link').data('page');
-            if (confirm('apakah anda yakin?'))
-                $.ajax({
-                    url: base_url + '/' + 'api/atur-grup/' + id,
-                    method: 'DELETE',
-                    dataType: 'json',
-                    success: function(response) {
-                        loadData(selectedPage);
-                        toastr.success('operasi berhasil dilakukan!', 'berhasil');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
-                            forceLogout('Akses ditolak! login kembali');
-                        } else {
-                            alert('operasi gagal dilakukan!');
-                        }
-                    }
-                });
-        });
-
-        $('#formAkses').submit(function(event) {
-            event.preventDefault();
-            var selectedPage = $('.page-item.active .page-link').data('page');
-            $.ajax({
-                url: base_url + '/' + 'api/atur-grup',
-                method: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    loadData(selectedPage);
-                    toastr.success('set akses akun berhasil dilakukan!', 'berhasil');
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
-                        forceLogout('Akses ditolak! login kembali');
-                    } else {
-                        alert('operasi gagal dilakukan!');
-                    }
-                }
-            });
-        });
 
     });
 </script>
