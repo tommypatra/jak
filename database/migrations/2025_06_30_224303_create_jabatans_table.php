@@ -15,7 +15,7 @@ class CreateJabatansTable extends Migration
     {
         Schema::create('jabatans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 180)->unique();
+            $table->string('nama', 180);
             $table->integer('urut');
             $table->boolean('is_pimpinan_utama');
             $table->unique(['nama']);
