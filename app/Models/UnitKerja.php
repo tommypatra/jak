@@ -10,9 +10,9 @@ class UnitKerja extends Model
     use HasFactory;
     protected $guarded = ["id"];
 
-    public function JabatanUser()
+    public function profil()
     {
-        return $this->hasMany(JabatanUser::class);
+        return $this->hasOne(Profil::class);
     }
 
     public function unitKerjaParent()
@@ -23,5 +23,5 @@ class UnitKerja extends Model
     public function unitKerjaChildren()
     {
         return $this->hasMany(UnitKerja::class, 'unit_kerja_id');
-    }   
+    }
 }

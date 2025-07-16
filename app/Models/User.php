@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(Grup::class);
     }
 
-    public function aturgrup()
+    public function aturGrup()
     {
         return $this->hasMany(AturGrup::class);
     }
@@ -77,11 +77,6 @@ class User extends Authenticatable
         return $this->hasMany(LikeDislike::class);
     }
 
-
-    public function jabatanUser()
-    {
-        return $this->hasMany(JabatanUser::class);
-    }
 
     public function komentar()
     {

@@ -74,9 +74,9 @@
 							<li><a href="{{ url('read/profil/lambang-atribut') }}">Lambang & Atribut</a></li>
 							<li><a href="{{ url('read/profil/mars-lembaga') }}">Mars Lembaga</a></li>
 							<li><a href="{{ url('dokumen/struktur-organisasi') }}">Struktur Organisasi</a></li>
-							<li><a href="{{ url('read/profil/unsur-pimpinan') }}">Unsur Pimpinan</a></li>
-							<li><a href="{{ url('read/profil/dosen-pengajar') }}">Dosen Pengajar</a></li>
-							<li><a href="{{ url('read/profil/tenaga-kependidikan') }}">Tenaga Kependidikan</a></li>
+							<li><a href="{{ url('sdm/pimpinan') }}">Unsur Pimpinan</a></li>
+							<li><a href="{{ url('sdm/dosen') }}">Dosen Pengajar</a></li>
+							<li><a href="{{ url('sdm/administrasi') }}">Tenaga Kependidikan</a></li>
 						</ul>
 					</li>
 					<li><span><a href="#0">Pendidikan</a></span>

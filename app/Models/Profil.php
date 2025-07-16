@@ -14,4 +14,14 @@ class Profil extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(UnitKerja::class);
+    }
 }

@@ -10,8 +10,8 @@ class Jabatan extends Model
     use HasFactory;
     protected $guarded = ["id"];
 
-    public function JabatanUser()
+    public function profil()
     {
-        return $this->hasMany(JabatanUser::class);
+        return $this->hasOne(Profil::class);
     }
 }

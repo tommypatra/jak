@@ -75,6 +75,12 @@ class ProfilController extends Controller
                 }
             }
             // dd($request->validated());
+            if (!isset($validated['is_administrasi'])) {
+                $validated['is_administrasi'] = 0;
+            }
+            if (!isset($validated['is_dosen'])) {
+                $validated['is_dosen'] = 0;
+            }
 
             $dataQuery->update($validated);
             DB::commit();

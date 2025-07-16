@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AturGrup;
 use Illuminate\Http\Request;
 use App\Http\Requests\AkunRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -12,22 +14,48 @@ class AkunController extends Controller
 {
     public function index(Request $request)
     {
-        $dataQuery = User::with(['aturgrup.grup', 'profil', 'jabatanUser.jabatan', 'jabatanUser.unitKerja'])->orderBy('name', 'asc');
+        $dataQuery = User::select('users.*')
+            ->leftJoin('profils', 'users.id', '=', 'profils.user_id')
+            ->leftJoin('jabatans', 'profils.jabatan_id', '=', 'jabatans.id')
+            ->leftJoin('unit_kerjas', 'profils.unit_kerja_id', '=', 'unit_kerjas.id')
+            ->with([
+                'aturGrup.grup',
+                'profil.jabatan',
+                'profil.unitKerja'
+            ])
+            ->orderBy('jabatans.urut', 'asc')
+            ->orderBy('unit_kerjas.urut', 'asc')
+            ->orderBy('users.name', 'asc');
 
         if ($request->filled('user_id')) {
-            $dataQuery->where('id', $request->user_id);
+            $dataQuery->where('users.id', $request->user_id);
         }
 
+        if ($request->filled('kategori')) {
+            if ($request->kategori == 'pimpinan') {
+                $dataQuery->whereNotNull('profils.jabatan_id');
+            } elseif ($request->kategori == 'dosen') {
+                $dataQuery->where('profils.is_dosen', 1);
+            } elseif ($request->kategori == 'administrasi') {
+                $dataQuery->where('profils.is_administrasi', 1);
+            }
+        }
+
+
         if ($request->filled('search')) {
-            $dataQuery->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('email', 'like', '%' . $request->search . '%');
+            $dataQuery->where(function ($query) use ($request) {
+                $query->where('users.name', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.email', 'like', '%' . $request->search . '%');
+            });
         }
 
         $limit = $request->input('limit', 25);
-        $data = $dataQuery->paginate($limit);
 
-        return response()->json($data);
+        return response()->json(
+            $dataQuery->paginate($limit)
+        );
     }
+
 
     public function store(AkunRequest $request)
     {
@@ -47,7 +75,7 @@ class AkunController extends Controller
 
     public function show($id)
     {
-        $dataQuery = User::with(['aturgrup.grup'])->find($id);
+        $dataQuery = User::with(['aturGrup.grup', 'profil', 'profil.jabatan', 'profil.unitKerja'])->find($id);
         if (!$dataQuery) {
             return response()->json(['message' => 'data tidak ditemukan'], 404);
         }
@@ -58,7 +86,7 @@ class AkunController extends Controller
     {
         DB::beginTransaction();
         try {
-            $dataQuery = AturGrup::findOrFail($id);
+            $dataQuery = User::findOrFail($id);
             $dataSave = $request->validated();
             if ($request->password) {
                 $dataSave['password'] = Hash::make($dataSave['password']);

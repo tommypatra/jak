@@ -15,6 +15,8 @@ class ProfilRequest extends FormRequest
     {
         $rules = [
             'user_id'         => 'required|integer',
+            'jabatan_id'      => 'nullable|integer',
+            'unit_kerja_id'   => 'nullable|integer',
             'gelar_depan'     => 'nullable|string|max:50',
             'gelar_belakang'  => 'nullable|string|max:50',
             'jenis_kelamin'   => 'nullable|in:L,P',
@@ -44,6 +46,8 @@ class ProfilRequest extends FormRequest
     {
         return [
             'user_id' => 'user',
+            'jabatan_id'      => 'jabatan',
+            'unit_kerja_id'   => 'unit kerja',
             'gelar_depan' => 'gelar depan',
             'gelar_belakang' => 'gelar belakang',
             'jenis_kelamin' => 'jenis kelamin',

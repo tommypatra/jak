@@ -241,8 +241,6 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Wakil Rektor 3', 'urut' => 1, 'is_pimpinan_utama' => 1],
             ['nama' => 'Dekan', 'urut' => 1, 'is_pimpinan_utama' => 1],
             ['nama' => 'Ketua Prodi', 'urut' => 1, 'is_pimpinan_utama' => 0],
-            ['nama' => 'Dosen', 'urut' => 1, 'is_pimpinan_utama' => 0],
-            ['nama' => 'Tenaga Kependidikan', 'urut' => 1, 'is_pimpinan_utama' => 0],
         ];
 
         foreach ($dtdef as $dt) {

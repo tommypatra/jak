@@ -20,6 +20,11 @@ class Update1ProfilsTable extends Migration
             $table->date('tanggal_lahir')->nullable()->after('tempat_lahir');
             $table->string('nomor_pegawai', 100)->nullable()->after('tanggal_lahir');
             $table->string('nidn', 50)->nullable()->after('nomor_pegawai');
+
+            $table->foreignId('jabatan_id')->nullable();
+            $table->foreign('jabatan_id')->references('id')->on('jabatans')->restrictOnDelete();
+            $table->foreignId('unit_kerja_id')->nullable();
+            $table->foreign('unit_kerja_id')->references('id')->on('unit_kerjas')->restrictOnDelete();
         });
     }
 

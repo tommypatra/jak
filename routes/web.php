@@ -31,6 +31,9 @@ Route::get('/artikel/{slug_kategori}', [WebAppController::class, 'listKontenSlug
 Route::get('/dokumen/{slug_kategori}', [WebAppController::class, 'listDokumenSlug']);
 Route::get('/feedback', [WebAppController::class, 'feedback']);
 
+Route::get('/sdm/{kagtegori}', [WebAppController::class, 'sdmWeb']);
+
+
 
 //route untuk akun yang sudah login, tanpa session
 // Route::group(['middleware' => 'auth'], function () {

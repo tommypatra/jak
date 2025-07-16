@@ -55,6 +55,7 @@ Route::get('/list-konten', [KontenController::class, 'index']);
 Route::get('/list-file', [FileController::class, 'index']);
 Route::get('/list-galeri', [GaleriController::class, 'index']);
 Route::get('/list-jenis-konten', [JenisKontenController::class, 'index']);
+Route::get('/list-sdm', [AkunController::class, 'index']);
 Route::get('/jumlah-jenis-publikasi/{kategori}', [JenisKontenController::class, 'jumlahJenisPublikasi']);
 
 Route::post('/kirim-komentar', [KomentarController::class, 'store']);
@@ -75,6 +76,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/get-pegawai', [AkunController::class, 'index']);
+    Route::get('/get-unit-kerja', [UnitKerjaController::class, 'index']);
+    Route::get('/get-jabatan', [JabatanController::class, 'index']);
 
     Route::resource('/profil-pegawai', ProfilController::class);
 

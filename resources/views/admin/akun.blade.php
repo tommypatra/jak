@@ -42,16 +42,36 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-2">
     <div class="col-sm-12">
-        <div class="input-group justify-content-end">
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="tambah">Tambah</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
-                Paging
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
-            </ul>
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+            <!-- Kiri: Search dan Filter -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <select class="form-select form-select-sm" id="filter-data" style="width: 150px;">
+                    <option value="semua">Semua</option>
+                    <option value="is_dosen">Dosen</option>
+                    <option value="is_administrasi">Administrasi</option>
+                </select>
+
+                <input type="text" class="form-control form-control-sm" id="cari-data" placeholder="Pencarian..." style="width: 200px;">            
+
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-cari">Cari</button>
+            </div>
+
+            <!-- Kanan: Tombol-tombol -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary btnTambah" id="tambah">Tambah</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary btnRefresh" id="refresh">Refresh</button>
+                
+                <div class="dropdown">
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">
+                        Paging
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -64,7 +84,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nama/Email</th>
                 <th scope="col">Alamat/ HP</th>
-                <th scope="col">Jabatan</th>
+                <th scope="col">Jabatan/ Unit Kerja</th>
                 <th scope="col">Hak Akses</th>
                 <th scope="col">Aksi</th>
             </tr>
@@ -192,6 +212,17 @@
             </div>
           </div>
 
+           <div class="row mb-3">
+            <div class="col-md-4">
+              <label class="form-label">Jabatan</label>
+              <select name="jabatan_id" id="jabatan_id" class="form-control"></select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Unit Kerja</label>
+              <select name="unit_kerja_id" id="unit_kerja_id" class="form-control"></select>
+            </div>
+          </div>
+
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Status</label>
@@ -216,13 +247,13 @@
 
           <div class="text-end">
             <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-          </div>
+            <a href="javascript:;" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</a>
+            </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
 
 @endsection
 
@@ -238,6 +269,8 @@
     $(document).ready(function() {
 
         loadGrup();
+        loadJabatan();
+        loadUnitKerja();
         loadData();
 
         $("#tanggal_lahir").datepicker({
@@ -264,6 +297,58 @@
                 }
             });
         }
+        
+        function loadUnitKerja() {
+            const select=$('#unit_kerja_id');
+            select.empty();
+            select.append('<option value="">- pilih -</option>');
+            $.ajax({
+                url: base_url + '/' + 'api/get-unit-kerja?limit=500',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, dt) {
+                            select.append('<option value="' + dt.id + '">' + dt.nama + '</option>');
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+                        forceLogout('Akses ditolak! login kembali');
+                    } else {
+                        alert('operasi gagal dilakukan!');
+                    }
+                }
+            });
+        }
+
+        function loadJabatan() {
+            const select=$('#jabatan_id');
+            select.empty();
+            select.append('<option value="">- pilih -</option>');
+
+            $.ajax({
+                url: base_url + '/' + 'api/get-jabatan?limit=500',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, dt) {
+                            select.append('<option value="' + dt.id + '">' + dt.nama + '</option>');
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401 && errorThrown === "Unauthorized") {
+                        forceLogout('Akses ditolak! login kembali');
+                    } else {
+                        alert('operasi gagal dilakukan!');
+                    }
+                }
+            });
+        }
+
 
         //load data profil pegawai
         function loadPegawai(user_id) {
@@ -273,6 +358,7 @@
                 dataType: 'json',
                 success: function(response) {
                     if(response.data.length>0){
+
                         const data = response.data[0];
                         const profil = data.profil;
                         const foto_pegawai=(profil)?'/storage/'+profil.foto:'/images/user-avatar.png';
@@ -296,6 +382,12 @@
                             $('#hp').val(profil.hp);
                             $('#is_administrasi').prop('checked', !!profil.is_administrasi);
                             $('#is_dosen').prop('checked', !!profil.is_dosen);
+
+                            if(profil.jabatan_id)
+                                $('#jabatan_id').val(profil.jabatan_id);
+                            if(profil.unit_kerja_id)
+                                $('#unit_kerja_id').val(profil.unit_kerja_id);
+                            
                         }
                         $('#previewFoto').attr('src',base_url+foto_pegawai);
                         // console.log(data);
@@ -310,8 +402,13 @@
                 }
             });
         }
+        
+        $('#btn-cari').click(function(){
+            loadData(1);
+        });
 
-        function loadData(page = 1, search = '') {
+        function loadData(page = 1) {
+            const search=$('#cari-data').val();
             $.ajax({
                 url: vApiUrl + '?page=' + page + '&search=' + search + '&paging=' + vPaging,
                 method: 'GET',
@@ -322,13 +419,15 @@
 
                     $.each(response.data, function(index, dt) {
                         var hakakses = '';
-                        // console.log(dt.aturgrup);
+                        // console.log(dt.atur_grup);
                         let foto_pegawai='/images/user-avatar.png';
                         let alamat='';
                         let nama_lengkap=dt.name;
                         let nip='';
                         let nidn='';
                         let status_pegawai='';
+                        let jabatan='';
+                        let unit_kerja =''
                         if(dt.profil){
                             if(dt.profil.is_administrasi){
                                 status_pegawai+='<span class="badge text-bg-success ms-1">Administrasi</span>';
@@ -336,6 +435,8 @@
                             if(dt.profil.is_dosen){
                                 status_pegawai+='<span class="badge text-bg-primary ms-1">Dosen</span>';
                             }
+                            unit_kerja=dt.profil.unit_kerja?dt.profil.unit_kerja.nama:"";
+                            jabatan=dt.profil.jabatan?dt.profil.jabatan.nama:"";
                             nama_lengkap=myLabel(dt.profil.gelar_depan)+' '+dt.name+' '+myLabel(dt.profil.gelar_belakang);
                             foto_pegawai='/storage/'+dt.profil.foto;
                             alamat=myLabel(dt.profil.alamat)+' '+myLabel(dt.profil.hp);
@@ -344,9 +445,9 @@
                         }
 
                         // console.log(dt.profil);  
-                        if (dt.aturgrup.length > 0) {
+                        if (dt.atur_grup.length > 0) {
                             hakakses = '<ul>';
-                            $.each(dt.aturgrup, function(index, dp) {
+                            $.each(dt.atur_grup, function(index, dp) {
                                 hakakses = hakakses + `<li>${dp.grup.nama} <button type="button" class="btn btn-danger btn-vsm hapusAkses" data-id="${dp.id}" >X</button></li>`;
                             });
                             hakakses = hakakses + '</ul>';
@@ -367,14 +468,13 @@
                             </td>
 
                             <td>${alamat}</td>
-                            <td></td> 
+                            <td>${jabatan} ${unit_kerja}</td> 
                             <td>${hakakses}</td> 
                             <td>
                                 <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" id="btn-paging">Aksi </button>
                                 <ul class="dropdown-menu dropdown-menu-end" id="list-select-paging">
                                     <li><a class="dropdown-item gantiData" data-id="${dt.id}" href="javascript:;">Ganti</a></li>
                                     <li><a class="dropdown-item profilAkun" data-id="${dt.id}" href="javascript:;">Profil</a></li>
-                                    <li><a class="dropdown-item " data-id="${dt.id}" href="javascript:;">Jabatan</a></li>
                                     <li><a class="dropdown-item setAkses" data-id="${dt.id}" href="javascript:;">Akses</a></li>
                                     <li><a class="dropdown-item hapusData" data-id="${dt.id}" href="javascript:;" >Hapus</a></li>
                                 </ul>
@@ -424,6 +524,9 @@
                     processData: false,
                     dataType: 'json',
                     success: function(response) {
+                        var modal = bootstrap.Modal.getInstance(document.getElementById('modalProfil'));
+                        modal.hide();
+                        loadData();
                         toastr.success('berhasil dilakukan!', 'Berhasil');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -599,6 +702,11 @@
         // function profiAkun(id){
         $(document).on('click', '.profilAkun', function() {
             var id = $(this).data('id');
+            $('#formProfil')[0].reset();
+            $('#formProfil').find('[name="user_id"]').val("");
+            $('#formProfil').find('[name="id"]').val("");
+            $('#formProfil select').val(null).trigger('change');
+            $('#formProfil input:checkbox').prop('checked', false);
             loadPegawai(id);
 
             var fModalForm = new bootstrap.Modal(document.getElementById('modalProfil'), {
@@ -617,7 +725,7 @@
                 method: 'get',
                 dataType: 'json',
                 success: function(response) {
-                    var aksesGrup = response.aturgrup;
+                    var aksesGrup = response.atur_grup;
                     var showModal=false;
                     $.each(vDataGrup.data, function(index, dt) {
                         var idFound = false;

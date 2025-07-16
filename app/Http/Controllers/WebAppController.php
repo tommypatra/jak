@@ -140,6 +140,12 @@ class WebAppController extends Controller
         return view('download_dokumen', ['slug_kategori' => $slug_kategori, 'slug_judul' => $slug_judul]);
     }
 
+    public function sdmWeb($kategori)
+    {
+        return view('sdm', ['kategori' => $kategori]);
+    }
+
+
     public function listKontenSlug($slug_kategori)
     {
         return view('list_konten', ['slug_kategori' => $slug_kategori]);
