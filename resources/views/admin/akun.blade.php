@@ -380,8 +380,8 @@
                             $('#nidn').val(profil.nidn);
                             $('#nomor_pegawai').val(profil.nomor_pegawai);
                             $('#hp').val(profil.hp);
-                            $('#is_administrasi').prop('checked', !!profil.is_administrasi);
-                            $('#is_dosen').prop('checked', !!profil.is_dosen);
+                            $('#is_administrasi').prop('checked', !!profil.is_administrasi==1);
+                            $('#is_dosen').prop('checked', !!profil.is_dosen==1);
 
                             if(profil.jabatan_id)
                                 $('#jabatan_id').val(profil.jabatan_id);
