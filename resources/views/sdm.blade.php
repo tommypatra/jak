@@ -83,9 +83,9 @@
 
           const foto = profil.foto ? `/storage/${profil.foto}` : "/images/user-avatar.png";
           const jenis_kelamin = profil.jenis_kelamin === 'L'
-            ? '<span class="badge bg-primary">Laki-laki</span>'
+            ? '<span class="badge bg-primary mb-2">Laki-laki</span>'
             : profil.jenis_kelamin === 'P'
-              ? '<span class="badge bg-danger">Perempuan</span>'
+              ? '<span class="badge bg-primary mb-2">Perempuan</span>'
               : '';
 
           const gelar_depan = profil.gelar_depan?profil.gelar_depan:"";
@@ -100,12 +100,17 @@
             ? `<p class="mb-1"><i class="bi bi-person-bounding-box me-2"></i>NIDN: ${profil.nidn}</p>`
             : '';
 
-          const jabatan = profil.jabatan
-            ? `<p class="mb-1"><i class="bi bi-briefcase me-2"></i>${profil.jabatan.nama}</p>`
-            : '';
-          const unit_kerja = profil.unit_kerja
-            ? `<p class="mb-1"><i class="bi bi-building me-2"></i>${profil.unit_kerja.nama}</p>`
-            : '';
+            const jabatan = profil.jabatan?.nama || '';
+            const unit_kerja = profil.unit_kerja?.nama || '';
+
+            let label_jabatan_unit_kerja = '';
+
+            if (jabatan) {
+              label_jabatan_unit_kerja += `<span style="font-size:30px">${jabatan}</span>`;
+            }
+            if (unit_kerja) {
+              label_jabatan_unit_kerja += ` <span style="font-size:12px">${unit_kerja}</span>`;
+            }
 
 
           // badge dosen/admin
@@ -126,15 +131,14 @@
 
                     <!-- DATA PROFIL -->
                     <div>
-                      ${jenis_kelamin}
+                      <div>${label_jabatan_unit_kerja}</div>
                       <h5 class="fw-semibold text-primary mb-2">${gelar_depan} ${dt.name} ${gelar_belakang}</h5>
+                      ${jenis_kelamin}
                       <p class="mb-1"><i class="bi bi-envelope me-2"></i>${dt.email}</p>
                       <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>${profil.tempat_lahir ?? ''} / ${profil.tanggal_lahir ?? ''}</p>
                       <p class="mb-1"><i class="bi bi-house-door me-2"></i>${profil.alamat ?? ''} - ${maskHp(profil.hp)}</p>
                       ${nomor_pegawai}
                       ${nidn}
-                      ${jabatan}
-                      ${unit_kerja}
                       ${badgeDosen} ${badgeAdmin}
                     </div>
                   </div>
