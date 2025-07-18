@@ -88,9 +88,9 @@
               ? '<span class="badge bg-primary mb-2">Perempuan</span>'
               : '';
 
-          const gelar_depan = profil.gelar_depan?profil.gelar_depan:"";
-          const gelar_belakang = profil.gelar_belakang?profil.gelar_belakang:"";
-
+          const gelar_depan = profil.gelar_depan?profil.gelar_depan+" ":"";
+          const gelar_belakang = profil.gelar_belakang?", "+profil.gelar_belakang:"";
+          const nama_lengkap = gelar_depan+dt.name+gelar_belakang;
 
           const nomor_pegawai = profil.nomor_pegawai
             ? `<p class="mb-1"><i class="bi bi-person-badge me-2"></i>Nomor Pegawai: ${profil.nomor_pegawai}</p>`
@@ -132,7 +132,7 @@
                     <!-- DATA PROFIL -->
                     <div>
                       <div>${label_jabatan_unit_kerja}</div>
-                      <h5 class="fw-semibold text-primary mb-2">${gelar_depan} ${dt.name} ${gelar_belakang}</h5>
+                      <h5 class="fw-semibold text-primary mb-2">${nama_lengkap}</h5>
                       ${jenis_kelamin}
                       <p class="mb-1"><i class="bi bi-envelope me-2"></i>${dt.email}</p>
                       <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>${profil.tempat_lahir ?? ''} / ${profil.tanggal_lahir ?? ''}</p>
