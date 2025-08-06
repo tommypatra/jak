@@ -97,8 +97,10 @@
 
 					
 
-					<li><span><a href="#0">Penelitian & Pengabdian</a></span>
+					<li><span><a href="#0">Tulisan & Pengabdian</a></span>
 						<ul>
+							<li><a href="{{ url('artikel/pojok-rektor') }}">Pojok Rektor</a></li>
+							<li><a href="{{ url('artikel/pojok-dosen') }}">Pojok Dosen</a></li>
 							<li><a href="https://jurnal.iiq-jakendari.ac.id">Jurnal</a></li>
 						</ul>
 					</li>
@@ -107,6 +109,15 @@
 							<li><a href="{{ url('artikel/berita') }}">Berita</a></li>
 							<li><a href="{{ url('artikel/pengumuman') }}">Pengumuman</a></li>
 							<li><a href="{{ url('galeri') }}">Galeri</a></li>
+							<li><span><a href="#0">Download</a></span>
+								<ul>
+									<li><a href="{{ url('dokumen/akreditasi') }}">Akreditasi</a></li>
+									<li><a href="{{ url('dokumen/download') }}">Arsip Dokumen Web</a></li>
+									<li><a href="{{ url('dokumen/peraturan') }}">Peraturan</a></li>
+									<li><a href="{{ url('dokumen/struktur-organisasi') }}">Struktur Organisasi</a></li>
+								</ul>
+							</li>
+
 						</ul>
 					</li>
 					<li><span><a href="{{ url('feedback') }}">Feedback</a></span></li>
