@@ -53,7 +53,7 @@
 			<ul id="top_menu">
 				<li><a href="{{ route('login') }}" class="login">Login</a></li>
 				<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
-				<li class="hidden_tablet"><a href="https://admisi.iiq-jakendari.ac.id" class="btn_1 rounded">Admisi</a></li>
+				<li class="hidden_tablet"><a href="https://iiq-jakendari.ac.id" class="btn_1 rounded">Admisi</a></li>
 			</ul>
 			<!-- /top_menu -->
 			<a href="#menu" class="btn_mobile">
@@ -101,7 +101,8 @@
 						<ul>
 							<li><a href="{{ url('artikel/pojok-rektor') }}">Pojok Rektor</a></li>
 							<li><a href="{{ url('artikel/pojok-dosen') }}">Pojok Dosen</a></li>
-							<li><a href="https://jurnal.iiq-jakendari.ac.id">Jurnal</a></li>
+							<li><a href="https://rumahjurnal.iiq-jakendari.ac.id">Open Journal System (OJS)</a></li>
+							<li><a href="https://repository.iiq-jakendari.ac.id">Repository</a></li>
 						</ul>
 					</li>
 					<li><span><a href="#0">Publikasi</a></span>
