@@ -4,6 +4,27 @@
 <head>
   @include('partials_head')
   @yield('head')
+  <style>
+    .loading-progress {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(51, 51, 51, 0.9);
+        color: #fff;
+        padding: 6px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 99999;
+        display: none; 
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        transition: opacity 0.3s ease;
+    }
+    .loading-progress img {
+        height: 30px;
+    }
+  </style>
+
   <script>
     var base_url = "{{ url('/') }}";
   </script>

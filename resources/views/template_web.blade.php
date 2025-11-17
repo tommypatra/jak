@@ -40,7 +40,7 @@
 </head>
 
 <body>
-
+	<div class="loading-progress">Loading <img src="{{ url('images/loading-2.gif') }}"></div>
 	<div id="page">
 
 		<header class="header menu_2">
@@ -210,7 +210,22 @@
 
 	<script src="{{ asset('js/myapp.js?v=7') }}"></script>
 	<script src="{{url('/js/iiq_web.js?v=7')}}"></script>
+	<script>
+	$(document)
+		.ajaxStart(function () {
+			$(".loading-progress").fadeIn(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', true);
+		})
+		.ajaxStop(function () {
+			$(".loading-progress").fadeOut(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
+		})
+		.ajaxError(function () {
+			$(".loading-progress").fadeOut(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
+		});
 
+	</script>
 	@yield('script')
 </body>
 
