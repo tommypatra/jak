@@ -32,26 +32,6 @@
 	<!-- SPECIFIC CSS -->
 	<link href="{{url('template/udema_v_3.3/html_menu_1')}}/layerslider/css/layerslider.css" rel="stylesheet">	
 	<link href="{{url('template/udema_v_3.3/html_menu_1')}}/css/custom.css" rel="stylesheet">
-	<style>
-		.loading-progress {
-			position: fixed;
-			top: 10px;
-			right: 10px;
-			background: rgba(51, 51, 51, 0.9);
-			color: #fff;
-			padding: 6px;
-			border-radius: 6px;
-			font-weight: bold;
-			font-size: 14px;
-			z-index: 99999;
-			display: none; 
-			box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-			transition: opacity 0.3s ease;
-		}
-		.loading-progress img {
-			height: 30px;
-		}
-	</style>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	@yield('head')
 	<script>
@@ -60,7 +40,7 @@
 </head>
 
 <body>
-	<div class="loading-progress">Loading <img src="{{ url('images/loading-2.gif') }}"></div>
+
 	<div id="page">
 
 		<header class="header menu_2">
@@ -230,22 +210,7 @@
 
 	<script src="{{ asset('js/myapp.js?v=7') }}"></script>
 	<script src="{{url('/js/iiq_web.js?v=7')}}"></script>
-	<script>
-	$(document)
-		.ajaxStart(function () {
-			$(".loading-progress").fadeIn(200);
-			$('button[type="submit"], input[type="submit"]').prop('disabled', true);
-		})
-		.ajaxStop(function () {
-			$(".loading-progress").fadeOut(200);
-			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
-		})
-		.ajaxError(function () {
-			$(".loading-progress").fadeOut(200);
-			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
-		});
 
-	</script>
 	@yield('script')
 </body>
 
