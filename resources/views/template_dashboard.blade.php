@@ -31,6 +31,8 @@
 </head>
 
 <body>
+	<div class="loading-progress">Loading <img src="{{ url('images/loading-2.gif') }}"></div>
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -123,7 +125,22 @@
   @include('partials_footer')
   <script src="{{ asset('js/token.js?v=7') }}"></script>
   <script src="{{ asset('js/myapp.js?v=7') }}"></script>
-  <script>
+	<script>
+    
+	$(document)
+		.ajaxStart(function () {
+			$(".loading-progress").fadeIn(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', true);
+		})
+		.ajaxStop(function () {
+			$(".loading-progress").fadeOut(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
+		})
+		.ajaxError(function () {
+			$(".loading-progress").fadeOut(200);
+			$('button[type="submit"], input[type="submit"]').prop('disabled', false);
+		});
+
     var akses_grup = localStorage.getItem('akses_grup');
     var daftar_akses = JSON.parse(localStorage.getItem('daftar_akses'));
 
